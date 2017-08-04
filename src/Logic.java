@@ -10,10 +10,12 @@ public class Logic {
 	// RETORNOS
 	int M1cartaAlta; // Mão 1 carta alta
 	int M2cartaAlta; // Mão 2 carta alta
-	int[] paresHAND1 = new int[5]; // Array de valores ordenados para mão 1 -
+	int[] UMparHAND1 = new int[5]; // Array de valores ordenados para mão 1 -
 									// verificação de pares
-	int[] paresHAND2 = new int[5]; // Array de valores ordenados para mão 2 -
+	int[] UMparHAND2 = new int[5]; // Array de valores ordenados para mão 2 -
 									// verificação de pares
+	int[] DOISparesHAND1 = new int[5];
+	int[] DOISparesHAND2 = new int[5];
 
 	public void dividirMAOS(String text) {
 
@@ -38,16 +40,47 @@ public class Logic {
 		}
 	}
 
-	public byte getPAR() {
-
+	public byte getUMPAR() {
+		byte key = 0;
 		// retorna qual das mãos possui o maior número de pares
-		if (this.paresHAND1.length > this.paresHAND2.length) {// m1 > m2
-			return 1;
-		} else if (this.paresHAND1.length < this.paresHAND2.length) {// m1 < m2
-			return 2;
+		if (this.UMparHAND1.length > this.UMparHAND2.length) {// m1 > m2
+			if (this.UMparHAND1.length > 1) { // se existir mais de um par na
+												// mão 1
+				this.DOISparesHAND1 = this.UMparHAND1; // repassa array
+				key = 1;
+			}
+			if (key == 1) { // retorna -1 se mão1 tem dois pares e mão2 não
+				return -1;
+			} else { // retorna 1 se mão1 não tem dois pares e é maior que mão2
+				return 1;
+			}
+
+		} else if (this.UMparHAND1.length < this.UMparHAND2.length) {// m1 < m2
+
+			if (this.UMparHAND2.length > 1) { // se existir mais de um par na
+												// mão2
+				this.DOISparesHAND2 = this.UMparHAND2; // repassa array
+				key = 2;
+			}
+			if (key == 2) { // retorna -2 se mão2 tem dois pares e mão1 não
+				return -2;
+			} else { // retorna 2 se mão2 não tem dois pares e é maior que mão1
+				return 2;
+			}
 		} else { // m1 == m2
-			return 0;
+			if ((this.UMparHAND1.length > 1) && (this.UMparHAND2.length > 1)) {
+				this.DOISparesHAND1 = this.UMparHAND1;
+				this.DOISparesHAND2 = this.UMparHAND2;
+				return -3; // retorna -3 se os dois tiverem dois pares
+			} else {
+				return 0; // retorna 0 mão1 e mão2 tiverem 1 par
+			}
+
 		}
+
+	}
+
+	public byte getDOISPARES() {
 
 	}
 
@@ -193,7 +226,7 @@ public class Logic {
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				if ((paresh1[i] == paresh1[j]) && (cont1 < 2)) {
-					this.paresHAND1[cont] = paresh1[i];
+					this.UMparHAND1[cont] = paresh1[i];
 					cont++;
 					cont1++;
 				}
@@ -206,7 +239,7 @@ public class Logic {
 		for (int x = 0; x < 5; x++) {
 			for (int y = 0; y < 5; y++) {
 				if ((paresh2[x] == paresh2[y]) && (cont1 < 2)) {
-					this.paresHAND2[cont] = paresh2[x];
+					this.UMparHAND2[cont] = paresh2[x];
 					cont++;
 					cont1++;
 				}
