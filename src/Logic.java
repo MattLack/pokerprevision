@@ -10,7 +10,10 @@ public class Logic {
 	// RETORNOS
 	int M1cartaAlta; // Mão 1 carta alta
 	int M2cartaAlta; // Mão 2 carta alta
-	int[] pares = new int[4];
+	int[] paresHAND1 = new int[5]; // Array de valores ordenados para mão 1 -
+									// verificação de pares
+	int[] paresHAND2 = new int[5]; // Array de valores ordenados para mão 2 -
+									// verificação de pares
 
 	public void dividirMAOS(String text) {
 
@@ -23,8 +26,9 @@ public class Logic {
 	// ================================= GETS
 	// ==================================//
 
-	// retorna qual das mãos possui a maior carta
 	public byte getCARTAALTA() {
+
+		// retorna qual das mãos possui a maior carta
 		if (this.M1cartaAlta > this.M2cartaAlta) { // m1 > m2
 			return 1;
 		} else if (this.M1cartaAlta < this.M2cartaAlta) { // m1 < m2
@@ -32,6 +36,19 @@ public class Logic {
 		} else { // m1 == m2
 			return 0;
 		}
+	}
+
+	public byte getPAR() {
+
+		// retorna qual das mãos possui o maior número de pares
+		if (this.paresHAND1.length > this.paresHAND2.length) {// m1 > m2
+			return 1;
+		} else if (this.paresHAND1.length < this.paresHAND2.length) {// m1 < m2
+			return 2;
+		} else { // m1 == m2
+			return 0;
+		}
+
 	}
 
 	/*
@@ -112,9 +129,9 @@ public class Logic {
 
 		int carta1;
 		int carta2;
+		int cont = 0;
 		int[] paresh1 = new int[5];
 		int[] paresh2 = new int[5];
-		int cont = 0;
 
 		for (int v1 = 0; v1 <= 14; v1 += 3) {
 
@@ -167,6 +184,33 @@ public class Logic {
 			paresh2[cont] = carta2;
 			cont++;
 
+		}
+
+		Arrays.sort(paresh2); // ordena array de valores
+		cont = 0;
+		int cont1 = 0;
+
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				if ((paresh1[i] == paresh1[j]) && (cont1 < 2)) {
+					this.paresHAND1[cont] = paresh1[i];
+					cont++;
+					cont1++;
+				}
+			}
+		}
+
+		cont = 0;
+		cont1 = 0;
+
+		for (int x = 0; x < 5; x++) {
+			for (int y = 0; y < 5; y++) {
+				if ((paresh2[x] == paresh2[y]) && (cont1 < 2)) {
+					this.paresHAND2[cont] = paresh2[x];
+					cont++;
+					cont1++;
+				}
+			}
 		}
 
 	}
