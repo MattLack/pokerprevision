@@ -10,12 +10,12 @@ public class Logic {
 	// RETORNOS
 	int M1cartaAlta; // Mão 1 carta alta
 	int M2cartaAlta; // Mão 2 carta alta
-	int[] UMparHAND1 = new int[5]; // Array de valores ordenados para mão 1 -
+	int[] UMparHAND1 = new int[2]; // Array de valores ordenados para mão 1 -
 									// verificação de pares
-	int[] UMparHAND2 = new int[5]; // Array de valores ordenados para mão 2 -
+	int[] UMparHAND2 = new int[2]; // Array de valores ordenados para mão 2 -
 									// verificação de pares
-	int[] DOISparesHAND1 = new int[5];
-	int[] DOISparesHAND2 = new int[5];
+	int[] DOISparesHAND1 = new int[2];
+	int[] DOISparesHAND2 = new int[2];
 
 	public void dividirMAOS(String text) {
 
@@ -80,7 +80,35 @@ public class Logic {
 
 	}
 
-	public byte getDOISPARES() {
+	public byte getDOISPARES(byte num) {
+
+		byte key1;
+		byte key2;
+
+		if (num == -1) { // -1 se mão1 tem dois pares e mão2 não
+			if (this.DOISparesHAND1[0] == this.DOISparesHAND1[1]) {
+				return -1;
+			} else {
+				return 1;
+			}
+		} else if (num == -2) { // -2 se mão2 tem dois pares e mão1 não
+			if (this.DOISparesHAND2[0] == this.DOISparesHAND2[1]) {
+				return -2;
+			} else {
+				return 2;
+			}
+		} else if (num == -3) { // retorna -3 se os dois tiverem dois pares
+			if (this.DOISparesHAND1[0] == this.DOISparesHAND1[1]) {
+				key1 = 0;
+			} else {
+				key1 = 1;
+			}
+			if (this.DOISparesHAND2[0] == this.DOISparesHAND2[1]) {
+				key2 = 3;
+			} else {
+				key2 = 4;
+			}
+		}
 
 	}
 
@@ -106,48 +134,72 @@ public class Logic {
 
 			// atualizando valor de cartas
 			if (hand1.charAt(v1) == 'A') {
-				this.M1cartaAlta = 14;
+				if (this.M1cartaAlta < 14) {
+					this.M1cartaAlta = 14;
+				}
 				k1 = 1;
 			}
 			if (hand2.charAt(v1) == 'A') {
-				this.M2cartaAlta = 14;
+				if (this.M2cartaAlta < 14) {
+					this.M2cartaAlta = 14;
+				}
 				k2 = 1;
 			}
 			if (hand1.charAt(v1) == 'K') {
-				this.M1cartaAlta = 13;
+				if (this.M1cartaAlta < 13) {
+					this.M1cartaAlta = 13;
+				}
 				k1 = 1;
 			}
 			if (hand2.charAt(v1) == 'K') {
-				this.M2cartaAlta = 13;
+				if (this.M2cartaAlta < 13) {
+					this.M2cartaAlta = 13;
+				}
 				k2 = 1;
 			}
 			if (hand1.charAt(v1) == 'Q') {
-				this.M1cartaAlta = 12;
+				if (this.M1cartaAlta < 12) {
+					this.M1cartaAlta = 12;
+				}
 				k1 = 1;
 			}
 			if (hand2.charAt(v1) == 'Q') {
-				this.M2cartaAlta = 12;
+				if (this.M2cartaAlta < 12) {
+					this.M2cartaAlta = 12;
+				}
 				k2 = 1;
 			}
 			if (hand1.charAt(v1) == 'J') {
-				this.M1cartaAlta = 11;
+				if (this.M1cartaAlta < 11) {
+					this.M1cartaAlta = 11;
+				}
 				k1 = 1;
 			}
 			if (hand2.charAt(v1) == 'J') {
-				this.M2cartaAlta = 11;
+				if (this.M2cartaAlta < 11) {
+					this.M2cartaAlta = 11;
+				}
 				k2 = 1;
 			}
 			if (hand1.charAt(v1) == 'T') {
-				this.M1cartaAlta = 10;
+				if (this.M1cartaAlta < 10) {
+					this.M1cartaAlta = 10;
+				}
 				k1 = 1;
 			}
 			if (hand2.charAt(v1) == 'T') {
-				this.M2cartaAlta = 10;
+				if (this.M2cartaAlta < 10) {
+					this.M2cartaAlta = 10;
+				}
 				k2 = 1;
 			} else if (k1 == 0) {
-				this.M1cartaAlta = Character.getNumericValue(hand1.charAt(v1));
+				if (this.M1cartaAlta < Character.getNumericValue(hand1.charAt(v1))) {
+					this.M1cartaAlta = Character.getNumericValue(hand1.charAt(v1));
+				}
 			} else if (k2 == 0) {
-				this.M2cartaAlta = Character.getNumericValue(hand2.charAt(v1));
+				if (this.M2cartaAlta < Character.getNumericValue(hand2.charAt(v1))) {
+					this.M2cartaAlta = Character.getNumericValue(hand2.charAt(v1));
+				}
 			}
 
 			v1 = v1 + 3;
@@ -231,6 +283,7 @@ public class Logic {
 					cont1++;
 				}
 			}
+			cont1 = 0;
 		}
 
 		cont = 0;
@@ -244,6 +297,7 @@ public class Logic {
 					cont1++;
 				}
 			}
+			cont1 = 0;
 		}
 
 	}
