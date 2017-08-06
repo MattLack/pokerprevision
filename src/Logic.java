@@ -119,6 +119,8 @@ public class Logic {
 	public byte getUMPAR() {
 		byte key = 0;
 		// retorna qual das mãos possui o maior número de pares
+		// atualiza casos 2 pares
+
 		if (this.UMparHAND1.length > this.UMparHAND2.length) {// m1 > m2
 			if (this.UMparHAND1.length > 1) { // se existir mais de um par na
 												// mão 1
@@ -127,7 +129,8 @@ public class Logic {
 			}
 			if (key == 1) { // retorna -1 se mão1 tem dois pares e mão2 não
 				return -1;
-			} else { // retorna 1 se mão1 não tem dois pares e é maior que mão2
+			} else if (key == 0) { // retorna 1 se mão1 não tem dois pares e é
+									// maior que mão2
 				return 1;
 			}
 
@@ -140,7 +143,8 @@ public class Logic {
 			}
 			if (key == 2) { // retorna -2 se mão2 tem dois pares e mão1 não
 				return -2;
-			} else { // retorna 2 se mão2 não tem dois pares e é maior que mão1
+			} else if (key == 0) { // retorna 2 se mão2 não tem dois pares e é
+									// maior que mão1
 				return 2;
 			}
 		} else { // m1 == m2
@@ -154,43 +158,58 @@ public class Logic {
 
 		}
 
+		return -10; // erro
+
 	}
 
 	public byte getDOISPARES(byte num) {
 
-		byte key1;
-		byte key2;
+		byte key1 = -1;
+		byte key2 = -1;
 
 		if (num == -1) { // -1 se mão1 tem dois pares e mão2 não
 			if (this.DOISparesHAND1[0] == this.DOISparesHAND1[1]) {
-				return -1;
+				return -1; // pares iguais
 			} else {
-				return 1;
+				return 1; // pares diferentes
 			}
 		} else if (num == -2) { // -2 se mão2 tem dois pares e mão1 não
 			if (this.DOISparesHAND2[0] == this.DOISparesHAND2[1]) {
-				return -2;
+				return -2; // pares iguais
 			} else {
-				return 2;
+				return 2; // pares diferentes
 			}
-		} else if (num == -3) { // retorna -3 se os dois tiverem dois pares
+		} else if (num == -3) { // -3 se os dois tiverem dois pares
 			if (this.DOISparesHAND1[0] == this.DOISparesHAND1[1]) {
-				key1 = 0;
+				key1 = 0; // pares iguais
 			} else {
-				key1 = 1;
+				key1 = 1; // pares diferentes
 			}
 			if (this.DOISparesHAND2[0] == this.DOISparesHAND2[1]) {
-				key2 = 3;
+				key2 = 3; // pares iguais
 			} else {
-				key2 = 4;
+				key2 = 4; // pares diferentes
+			}
+
+			if (key1 == 1 && key2 == 3) { // m1 pares diferentes m2 pares iguais
+				return 10;
+			} else if (key1 == 0 && key2 == 4) { // m1 pares iguais m2 pares
+													// diferentes
+				return 11;
+			} else if (key1 == 1 && key2 == 4) { // m1 m2 pares diferentes
+				return 12;
+			} else if (key1 == 0 && key2 == 3) { // m1 m2 pares iguais
+				return 13;
 			}
 		}
 
+		return -10;
+
 	}
 
-	/*
-	 * public static void main(String[]args){ dividirMAOS(""); }
-	 */
+	
+	  public static void main(String[]args){ int[] DOISparesHAND1 = new int[2]; System.out.println(DOISparesHAND1[0]); }
+	 
 
 	// =========================================================================//
 
@@ -269,12 +288,16 @@ public class Logic {
 				}
 				k2 = 1;
 			} else if (k1 == 0) {
-				if (this.M1cartaAlta < Character.getNumericValue(hand1.charAt(v1))) {
-					this.M1cartaAlta = Character.getNumericValue(hand1.charAt(v1));
+				if (this.M1cartaAlta < Character.getNumericValue(hand1
+						.charAt(v1))) {
+					this.M1cartaAlta = Character.getNumericValue(hand1
+							.charAt(v1));
 				}
 			} else if (k2 == 0) {
-				if (this.M2cartaAlta < Character.getNumericValue(hand2.charAt(v1))) {
-					this.M2cartaAlta = Character.getNumericValue(hand2.charAt(v1));
+				if (this.M2cartaAlta < Character.getNumericValue(hand2
+						.charAt(v1))) {
+					this.M2cartaAlta = Character.getNumericValue(hand2
+							.charAt(v1));
 				}
 			}
 
@@ -377,7 +400,6 @@ public class Logic {
 		}
 
 	}
-
 	/**
 	 * 
 	 * –Carta alta: Carta com maior valor. –Um par: duas cartas com o mesmo
