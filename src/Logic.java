@@ -6,6 +6,10 @@ public class Logic {
 
 	String hand1;
 	String hand2;
+	int[] valorHAND1 = new int[5];
+	char[] naipeHAND1 = new char[5];
+	int[] valorHAND2 = new int[5];
+	char[] naipeHAND2 = new char[5];
 
 	// RETORNOS
 	int M1cartaAlta; // Mão 1 carta alta
@@ -23,21 +27,93 @@ public class Logic {
 		this.hand1 = text.substring(0, 15);
 		this.hand2 = text.substring(15);
 
+		int carta1;
+		int carta2;
+		int cont1 = 0;
+		int cont2 = 0;
+
+		for (int v1 = 0; v1 <= 14; v1 += 3) {
+
+			if (this.hand1.charAt(v1) == 'A') {
+				carta1 = 14;
+			}
+			if (this.hand1.charAt(v1) == 'K') {
+				carta1 = 13;
+			}
+			if (this.hand1.charAt(v1) == 'Q') {
+				carta1 = 12;
+			}
+			if (this.hand1.charAt(v1) == 'J') {
+				carta1 = 11;
+			}
+			if (this.hand1.charAt(v1) == 'T') {
+				carta1 = 10;
+			} else {
+				carta1 = Character.getNumericValue(this.hand1.charAt(v1));
+			}
+
+			this.valorHAND1[cont1] = carta1;
+			cont1++;
+
+		}
+
+		for (int v2 = 0; v2 <= 14; v2 += 3) {
+
+			if (this.hand2.charAt(v2) == 'A') {
+				carta2 = 14;
+			}
+			if (this.hand2.charAt(v2) == 'K') {
+				carta2 = 13;
+			}
+			if (this.hand2.charAt(v2) == 'Q') {
+				carta2 = 12;
+			}
+			if (this.hand2.charAt(v2) == 'J') {
+				carta2 = 11;
+			}
+			if (this.hand2.charAt(v2) == 'T') {
+				carta2 = 10;
+			} else {
+				carta2 = Character.getNumericValue(this.hand2.charAt(v2));
+			}
+
+			this.valorHAND2[cont2] = carta2;
+			cont2++;
+
+		}
+
+		cont1 = 0;
+
+		for (int n1 = 1; n1 <= 14; n1 += 3) {
+			this.naipeHAND1[cont1] = this.hand1.charAt(n1);
+			this.naipeHAND2[cont1] = this.hand2.charAt(n1);
+			cont1++;
+		}
+
 	}
 
 	// ================================= GETS
 	// ==================================//
 
-	public byte getCARTAALTA() {
+	public byte testaCARTAALTA(int[] hand1, int[] hand2, int ordem) {
 
-		// retorna qual das mãos possui a maior carta
-		if (this.M1cartaAlta > this.M2cartaAlta) { // m1 > m2
+		int[] aux1 = this.valorHAND1.clone();
+		int[] aux2 = this.valorHAND2.clone();
+
+		Arrays.sort(aux1);
+		Arrays.sort(aux2);
+
+		int n1 = this.valorHAND1[ordem];
+		int n2 = this.valorHAND2[ordem];
+
+		if (n1 > n2) {
 			return 1;
-		} else if (this.M1cartaAlta < this.M2cartaAlta) { // m1 < m2
+		} else if (n2 > n1) {
 			return 2;
-		} else { // m1 == m2
+		} else {
 			return 0;
 		}
+
 	}
 
 	public byte getUMPAR() {
