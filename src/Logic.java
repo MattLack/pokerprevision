@@ -101,6 +101,7 @@ public class Logic {
 		int[] aux2 = this.valorHAND2.clone();
 
 		Arrays.sort(aux1);
+		
 		Arrays.sort(aux2);
 
 		int n1 = this.valorHAND1[ordem];
