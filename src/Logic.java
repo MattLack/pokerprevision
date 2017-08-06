@@ -12,11 +12,9 @@ public class Logic {
 	char[] naipeHAND2 = new char[5];
 
 	// RETORNOS
-	int M1cartaAlta; // Mão 1 carta alta
-	int M2cartaAlta; // Mão 2 carta alta
-	int[] UMparHAND1 = new int[2]; // Array de valores ordenados para mão 1 -
+	int[] UMparHAND1 = new int[5]; // Array de valores ordenados para mão 1 -
 									// verificação de pares
-	int[] UMparHAND2 = new int[2]; // Array de valores ordenados para mão 2 -
+	int[] UMparHAND2 = new int[5]; // Array de valores ordenados para mão 2 -
 									// verificação de pares
 	int[] DOISparesHAND1 = new int[2];
 	int[] DOISparesHAND2 = new int[2];
@@ -95,17 +93,17 @@ public class Logic {
 	// ================================= GETS
 	// ==================================//
 
-	public byte testaCARTAALTA(int[] hand1, int[] hand2, int ordem) {
+	public byte testaCARTAALTA(int ordem) {
 
 		int[] aux1 = this.valorHAND1.clone();
 		int[] aux2 = this.valorHAND2.clone();
 
 		Arrays.sort(aux1);
-		
+
 		Arrays.sort(aux2);
 
-		int n1 = this.valorHAND1[ordem];
-		int n2 = this.valorHAND2[ordem];
+		int n1 = aux1[ordem];
+		int n2 = aux2[ordem];
 
 		if (n1 > n2) {
 			return 1;
@@ -115,6 +113,75 @@ public class Logic {
 			return 0;
 		}
 
+	}
+
+	public byte UMPAR(int[] hand1, int[] hand2) {
+
+		int cont = 0;
+
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				if ((this.valorHAND1[i] == this.valorHAND1[j])) {
+					this.UMparHAND1[cont] = valorHAND1[i];
+					cont++;
+				}
+			}
+		}
+
+		cont = 0;
+
+		for (int x = 0; x < 5; x++) {
+			for (int y = 0; y < 5; y++) {
+				if ((this.valorHAND2[x] == this.valorHAND2[y])) {
+					this.UMparHAND2[cont] = this.valorHAND2[x];
+					cont++;
+				}
+			}
+		}
+
+		int contA = 0;
+		int contB = 0;
+
+		for (int k = 0; k < 5; k++) {
+
+			if (this.UMparHAND1[k] != 0) {
+				contA++;
+			}
+
+			if (this.UMparHAND2[k] != 0) {
+				contB++;
+			}
+
+		}
+
+		if (contA == 1 && contB == 0) { // mão1 tem par, mão 2 não
+			return 1;
+		} else if (contA == 0 && contB == 1) { // mão2 tem par, mão1 não
+			return 2;
+		} else if (contA == 0 && contB == 0) { // não tem par
+			return -1;
+		} else if (contA == 1 && contB == 1) { // empata
+			return -2;
+		} else if (contA > 1 && contB > 1) { // mais de um par
+			return -3;
+		} else {
+			return 10;
+		}
+
+	}
+
+	public byte desempataUMPAR() {
+		for (int k = 0; k < 5; k++) {
+
+			if (this.UMparHAND1[k] != 0) {
+				contA++;
+			}
+
+			if (this.UMparHAND2[k] != 0) {
+				contB++;
+			}
+
+		}
 	}
 
 	public byte getUMPAR() {
@@ -207,106 +274,12 @@ public class Logic {
 		return -10;
 
 	}
-
-	
-	  public static void main(String[]args){ int[] DOISparesHAND1 = new int[2]; System.out.println(DOISparesHAND1[0]); }
-	 
+	/*
+	 * public static void main(String[] args) { int[] DOISparesHAND1 = new
+	 * int[2]; System.out.println(DOISparesHAND1[0]); }
+	 */
 
 	// =========================================================================//
-
-	public void CartaAlta(String hand1, String hand2) {
-
-		// objetivo - verificar a carta com maior valor na mão
-		// fazendo as duas mãos em sequencia
-
-		int v1 = 0;
-		byte k1;
-		byte k2;
-
-		while (v1 <= 14) {
-
-			k1 = 0;
-			k2 = 0;
-
-			// atualizando valor de cartas
-			if (hand1.charAt(v1) == 'A') {
-				if (this.M1cartaAlta < 14) {
-					this.M1cartaAlta = 14;
-				}
-				k1 = 1;
-			}
-			if (hand2.charAt(v1) == 'A') {
-				if (this.M2cartaAlta < 14) {
-					this.M2cartaAlta = 14;
-				}
-				k2 = 1;
-			}
-			if (hand1.charAt(v1) == 'K') {
-				if (this.M1cartaAlta < 13) {
-					this.M1cartaAlta = 13;
-				}
-				k1 = 1;
-			}
-			if (hand2.charAt(v1) == 'K') {
-				if (this.M2cartaAlta < 13) {
-					this.M2cartaAlta = 13;
-				}
-				k2 = 1;
-			}
-			if (hand1.charAt(v1) == 'Q') {
-				if (this.M1cartaAlta < 12) {
-					this.M1cartaAlta = 12;
-				}
-				k1 = 1;
-			}
-			if (hand2.charAt(v1) == 'Q') {
-				if (this.M2cartaAlta < 12) {
-					this.M2cartaAlta = 12;
-				}
-				k2 = 1;
-			}
-			if (hand1.charAt(v1) == 'J') {
-				if (this.M1cartaAlta < 11) {
-					this.M1cartaAlta = 11;
-				}
-				k1 = 1;
-			}
-			if (hand2.charAt(v1) == 'J') {
-				if (this.M2cartaAlta < 11) {
-					this.M2cartaAlta = 11;
-				}
-				k2 = 1;
-			}
-			if (hand1.charAt(v1) == 'T') {
-				if (this.M1cartaAlta < 10) {
-					this.M1cartaAlta = 10;
-				}
-				k1 = 1;
-			}
-			if (hand2.charAt(v1) == 'T') {
-				if (this.M2cartaAlta < 10) {
-					this.M2cartaAlta = 10;
-				}
-				k2 = 1;
-			} else if (k1 == 0) {
-				if (this.M1cartaAlta < Character.getNumericValue(hand1
-						.charAt(v1))) {
-					this.M1cartaAlta = Character.getNumericValue(hand1
-							.charAt(v1));
-				}
-			} else if (k2 == 0) {
-				if (this.M2cartaAlta < Character.getNumericValue(hand2
-						.charAt(v1))) {
-					this.M2cartaAlta = Character.getNumericValue(hand2
-							.charAt(v1));
-				}
-			}
-
-			v1 = v1 + 3;
-
-		}
-
-	}
 
 	public void Par(String hand1, String hand2) {
 
