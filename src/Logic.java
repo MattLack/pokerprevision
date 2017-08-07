@@ -213,217 +213,6 @@ public class Logic {
 		return 10; // erro
 	}
 
-	public boolean testaDOISPARES(String hand) {
-
-		int valor;
-		int nvalor;
-		int diferenca;
-
-		for (int i = 0; i < 4; i++) {
-			if (this.UMparHAND1[i] != 0) {
-				valor = this.UMparHAND1[i];
-				nvalor = this.UMparHAND1[i + 1];
-				diferenca = valor - nvalor;
-
-				if (diferenca != 0) {
-
-				}
-			}
-
-		}
-
-		int tPAR = 0;
-		for (int i = 0; i < hand.length(); i += 2) {
-			int j = i + 2;
-			int cont = 0;
-			while (j < hand.length()) {
-				if (hand.charAt(i) == hand.charAt(j)) {
-					cont += 1;
-				}
-				j += 2;
-			}
-			if (cont > 1) {
-				return false;
-			}
-			if (cont == 1) {
-				tPAR += cont;
-			}
-		}
-		if (tPAR == 2) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean testaTRINCA(String hand) {
-
-		int tPAR = 0;
-		int tTRINCA = 0;
-		char tTRINCAChar = '0';
-		for (int i = 0; i < hand.length(); i += 2) {
-			int j = i + 2;
-			int cont = 0;
-			while (j < hand.length()) {
-				if (hand.charAt(i) == hand.charAt(j)) {
-					cont += 1;
-				}
-				j += 2;
-			}
-			if (cont > 2) {
-				return false;
-			}
-			if (cont == 1 && (hand.charAt(i) != tTRINCAChar)) {
-				tPAR += 1;
-			}
-			if (cont == 2) {
-				tTRINCA += 1;
-				tTRINCAChar = hand.charAt(i);
-			}
-		}
-		if (tTRINCA == 1 && tPAR == 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean testaSEQUENCIA(String mao) {
-		int[] cartas = new int[5];
-		for (int i = 0; i < mao.length(); i += 2) {
-			if (mao.charAt(i) == 'A') {
-				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
-					if (cartas[i1] == 0) {
-						cartas[i1] = 14;
-						break;
-					}
-				}
-			}
-			if (mao.charAt(i) == 'K') {
-				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
-					if (cartas[i1] == 0) {
-						cartas[i1] = 13;
-						break;
-					}
-				}
-			}
-			if (mao.charAt(i) == 'Q') {
-				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
-					if (cartas[i1] == 0) {
-						cartas[i1] = 12;
-						break;
-					}
-				}
-			}
-			if (mao.charAt(i) == 'J') {
-				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
-					if (cartas[i1] == 0) {
-						cartas[i1] = 11;
-						break;
-					}
-				}
-			}
-			if (mao.charAt(i) == 'T') {
-				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
-					if (cartas[i1] == 0) {
-						cartas[i1] = 10;
-						break;
-					}
-				}
-			}
-			if (Character.isDigit(mao.charAt(i))) {
-				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
-					if (cartas[i1] == 0) {
-						cartas[i1] = Character.getNumericValue(mao.charAt(i));
-						break;
-					}
-				}
-			}
-		}
-		Arrays.sort(cartas);
-		if (cartas[4] == 14 && cartas[0] == 2) {
-			int[] cartas1 = cartas.clone();
-			cartas1[4] = 1;
-			Arrays.sort(cartas1);
-			for (int j1 = 0; j1 < cartas1.length - 1; j1 += 1) {
-				if (cartas1[j1 + 1] - cartas1[j1] != 1) {
-					return false;
-				}
-			}
-			return true;
-		}
-		if (cartas[4] <= 14 && cartas[0] >= 2) {
-			for (int j1 = 0; j1 < cartas.length - 1; j1 += 1) {
-				if (cartas[j1 + 1] - cartas[j1] != 1) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-
-	public boolean testaFLUSH(String mao) {
-		for (int i = 1; i < mao.length() - 2; i += 2) {
-			if (mao.charAt(i) != mao.charAt(i + 2)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	public static boolean testaFullHouse(String mao) {
-		int flagPar = 0;
-		int flagTrinca = 0;
-		char flagTrincaChar = '0';
-		for (int i = 0; i < mao.length(); i += 2) {
-			int j = i + 2;
-			int cont = 0;
-			while (j < mao.length()) {
-				if (mao.charAt(i) == mao.charAt(j)) {
-					cont += 1;
-				}
-				j += 2;
-			}
-			if (cont > 2) {
-				return false;
-			}
-			if (cont == 1 && (mao.charAt(i) != flagTrincaChar)) {
-				flagPar += 1;
-			}
-			if (cont == 2) {
-				flagTrinca += 1;
-				flagTrincaChar = mao.charAt(i);
-			}
-		}
-		if (flagTrinca == 1 && flagPar == 1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean testaQUADRA(String hand) {
-
-		for (int k = 0; k < hand.length(); k += 2) {
-			int j = k + 2;
-			int cont = 0;
-			while (j < hand.length()) {
-				if (hand.charAt(k) == hand.charAt(j)) {
-					cont += 1;
-				}
-				j += 2;
-			}
-			if (cont > 3) {
-				return false;
-			}
-			if (cont == 3) {
-				return true;
-			}
-
-		}
-		return false;
-	}
-
 	public byte getDOISPARES(byte num) {
 
 		byte key1 = -1;
@@ -471,34 +260,42 @@ public class Logic {
 
 	public static boolean testa(int[] valor) {
 
-		int[] aux = valor.clone();
-		Arrays.sort(aux);
-		int dif = 0;
-		int contDIF = 0;
-		int cont = 1;
+		Arrays.sort(valor);
+
+		// precisa estar ordenado
+
+		byte cont = 0;
+		boolean ok = false;
+
 		for (int i = 0; i < 5; i++) {
-			if (cont != 5) {
-				dif = aux[cont] - aux[i];
-				if (dif == 1) {
-					contDIF++;
+			for (int j = 1; j < 5; j++) {
+				if (valor[i] == valor[j]) {
 					cont++;
+					ok = true;
+				} else {
+					break;
+				}
+			}
+			if (ok) {
+				if (cont == 4) {
+					return true;
 				} else {
 					return false;
 				}
 			}
-
 		}
-		
-		if(contDIF == 4){
+
+		if (cont == 4) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
-		
+
+
 	}
 
 	public static void main(String[] args) {
-		int[] DOISparesHAND1 = { 1, 2, 7, 4, 5 };
+		int[] DOISparesHAND1 = { 4, 4, 3, 3, 4 };
 
 		System.out.println(testa(DOISparesHAND1));
 	}

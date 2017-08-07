@@ -5,17 +5,10 @@ public class Testes {
 
 	public boolean testROYALFLASH(int[] aux2, char[] naipe) {
 
-		int v = 0;
-		char naipev = naipe[0];
-
-		for (int i = 0; i < 5; i++) {
-			if (naipe[i] == naipev) {
-				v++;
-			}
-		}
+		boolean v = testFLUSH(naipe);
 
 		// precisa estar ordenado
-		
+
 		int valort = 0;
 		int base = 10;
 
@@ -26,7 +19,7 @@ public class Testes {
 			}
 		}
 
-		if (v == 5 && valort == 5) {
+		if (v == true && valort == 5) {
 			return true;
 		} else {
 			return false;
@@ -58,10 +51,12 @@ public class Testes {
 		boolean ok = false;
 
 		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
+			for (int j = 1; j < 5; j++) {
 				if (valor[i] == valor[j]) {
 					cont++;
 					ok = true;
+				} else {
+					break;
 				}
 			}
 			if (ok) {
@@ -140,14 +135,16 @@ public class Testes {
 		boolean ok = false;
 
 		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
+			for (int j = 1; j < 5; j++) {
 				if (valor[i] == valor[j]) {
 					cont++;
 					ok = true;
+				} else {
+					break;
 				}
 			}
 			if (ok) {
-				if (cont == 3) {
+				if (cont == 2) {
 					return true;
 				} else {
 					return false;
@@ -155,7 +152,7 @@ public class Testes {
 			}
 		}
 
-		if (cont == 3) {
+		if (cont == 2) {
 			return true;
 		} else {
 			return false;
@@ -164,6 +161,41 @@ public class Testes {
 	}
 
 	public boolean testDOISPARES(int[] valor) {
+
+		// precisa estar ordenado
+
+		int[] aux = valor.clone();
+		int[] doispares = new int[2];
+		byte cont = 0;
+
+		for (int i = 0; i < 5; i++) {
+			for (int j = 1; j < 5; j++) {
+				if (aux[i] == aux[j] && i != j) {
+					doispares[cont] = aux[i];
+					aux[i] = 0;
+					i = j;
+					j = j + 1;
+					cont++;
+				}
+			}
+
+			if (cont == 2) {
+				if (doispares[0] != doispares[1]) {
+					return true;
+				}
+			}
+		}
+		return false;
+
+	}
+
+	public boolean testUMPAR(int[] valor) {
+		// precisa estar ordenado
+
+	}
+
+	public byte testCARTAALTA(int[] valor) {
+		// precisa estar ordenado
 
 	}
 
