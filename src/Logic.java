@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.Arrays;
 
 public class Logic {
@@ -13,8 +14,64 @@ public class Logic {
 	int[] ordValH1 = new int[5];
 	int[] ordValH2 = new int[5];
 
+	// Vencedor 1
+	long venc1;
+
+	private static Logic instance = null;
+
+	private Logic() {
+
+	}
+
+	public static Logic getInstance() {
+
+		if (instance == null) {
+			instance = new Logic();
+		}
+		return instance;
+
+	}
+
 	public void logicHANDS(String text) {
+
+		this.venc1 = 0;
+
 		dividirMAOS(text);
+
+		if ((Testes.getInstace().testROYALFLASH(ordValH1, naipeHAND1))
+				&& !(Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2))) {
+			//m1 tem royalflash m2 não
+			venc1++;
+			break;
+		} else if ((Testes.getInstace().testROYALFLASH(ordValH1, naipeHAND1))
+				&& (Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2)) && (Testes.getInstace().testCARTAALTA(ordValH1, ordValH2)==1)) {
+			//m1 e m2 tem royalflash - m1 tem carta alta
+			venc1++;
+			break;
+		}else if ((Testes.getInstace().testSTRAIGHTFLUSH(ordValH1, naipeHAND1))
+				&& !(Testes.getInstace().testSTRAIGHTFLUSH(ordValH2, naipeHAND2))
+				&& !(Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2))) {
+			//m1 tem straight flush e m2 não e nem royal flash
+			venc1++;
+			break;
+		} else if ((Testes.getInstace().testQUADRA(ordValH1)) && !(Testes.getInstace().testQUADRA(ordValH2))
+				&& !(Testes.getInstace().testSTRAIGHTFLUSH(ordValH2, naipeHAND2))
+				&& !(Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2))) {
+			// m1 tem quadra e m2 não, e nem strayight flush nem royal flash
+			venc1++;
+			break;
+		} else if ((Testes.getInstace().testQUADRA(ordValH1))
+				&& (Testes.getInstace().testCARTAALTA(ordValH1, ordValH2) == 1)
+				&& (Testes.getInstace().testQUADRA(ordValH2)) && !(Testes.getInstace().testSTRAIGHTFLUSH(ordValH2, naipeHAND2))
+				&& !(Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2))) {
+			// m1 e m2 tem quadra - m1 tem carta alta - m2 não tem straight flush e nem royalflash
+			venc1++;
+			break;
+		} else if (){
+			
+			venc1++;
+			break;
+		}
 
 	}
 
@@ -95,45 +152,6 @@ public class Logic {
 
 		Arrays.sort(this.ordValH2);
 
-	}
-
-	public static boolean testa(int[] valor) {
-
-		Arrays.sort(valor);
-
-		// precisa estar ordenado
-		
-		int[] aux = valor.clone();
-		int[] doispares = new int[2];
-		byte cont = 0;
-
-		for (int i = 0; i < 5; i++) {
-			for (int j = 1; j < 5; j++) {
-				if (aux[i] == aux[j] && i != j) {
-					doispares[cont] = aux[i];
-					aux[i] = 0;
-					i = j;
-					j = j + 1;
-					cont++;
-				}
-			}
-
-			if (cont == 2) {
-				if (doispares[0] != doispares[1]) {
-					return true;
-				}
-			}
-		}
-		return false;
-
-	}
-
-	public static void main(String[] args) {
-		int[] DOISparesHAND1 = { 1, 2, 1, 2, 1 };
-		
-		
-
-		System.out.println(Testes.getInstace().testFULLHOUSE(DOISparesHAND1));
 	}
 
 	// =========================================================================//

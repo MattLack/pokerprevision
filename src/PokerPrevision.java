@@ -10,8 +10,6 @@ import java.util.Scanner;
 public class PokerPrevision {
 
 	private static final String txtEntrada = "entrada/poker";
-	private static final String txtSaida = "saida/poker";
-	private BufferedWriter escritor = null;
 
 	public static void PokerHands(String FILENAME) {
 
@@ -31,7 +29,7 @@ public class PokerPrevision {
 
 			while ((sCurrentLine = br.readLine()) != null) {
 				if (!sCurrentLine.equals("\n") && !sCurrentLine.equals("") && !sCurrentLine.equals(" ")) {
-					// chamar método previsionline aqui
+					Logic.getInstance().logicHANDS(sCurrentLine);
 				}
 			}
 
@@ -47,13 +45,6 @@ public class PokerPrevision {
 
 	}
 
-	public void PrevisionLine() {
-
-		// lógica da previsão
-		// escrever no arquivo
-
-	}
-
 	public static void main(String[] args) {
 
 		double tInicio = System.currentTimeMillis();// inicia marcação de tempo
@@ -66,8 +57,8 @@ public class PokerPrevision {
 
 		String texto = teclado.nextLine();
 		PokerHands(texto);
-		
-		double tFim = System.currentTimeMillis();
+
+		double tFim = System.currentTimeMillis(); // encerra marcação do tempo
 		System.out.println("Tempo Gasto em segundos= " + ((tFim - tInicio) / 1000));
 
 	}
