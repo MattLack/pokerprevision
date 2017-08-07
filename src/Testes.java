@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Testes {
 
-	public boolean testROYALFLASH(int[] valor, char[] naipe) {
+	public boolean testROYALFLASH(int[] aux2, char[] naipe) {
 
 		int v = 0;
 		char naipev = naipe[0];
@@ -14,9 +14,8 @@ public class Testes {
 			}
 		}
 
-		int[] aux2 = valor.clone();
-
-		Arrays.sort(aux2);
+		// precisa estar ordenado
+		
 		int valort = 0;
 		int base = 10;
 
@@ -53,16 +52,23 @@ public class Testes {
 
 		// List<int[]> listav = (Arrays.asList(valor));
 
-		int[] aux2 = valor.clone();
-
-		Arrays.sort(aux2);
+		// precisa estar ordenado
 
 		byte cont = 0;
+		boolean ok = false;
 
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
 				if (valor[i] == valor[j]) {
 					cont++;
+					ok = true;
+				}
+			}
+			if (ok) {
+				if (cont == 4) {
+					return true;
+				} else {
+					return false;
 				}
 			}
 		}
@@ -98,10 +104,10 @@ public class Testes {
 
 	}
 
-	public boolean testSEQUENCIA(int[] valor) {
+	public boolean testSEQUENCIA(int[] aux) {
 
-		int[] aux = valor.clone();
-		Arrays.sort(aux);
+		// precisa estar ordenado
+
 		int dif = 0;
 		int contDIF = 0;
 		int cont = 1;
@@ -125,9 +131,40 @@ public class Testes {
 		}
 
 	}
-	
-	public void testTRINCA(int[] valor){
-		
+
+	public boolean testTRINCA(int[] valor) {
+
+		// precisa estar ordenado
+
+		byte cont = 0;
+		boolean ok = false;
+
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				if (valor[i] == valor[j]) {
+					cont++;
+					ok = true;
+				}
+			}
+			if (ok) {
+				if (cont == 3) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+
+		if (cont == 3) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	public boolean testDOISPARES(int[] valor) {
+
 	}
 
 }
