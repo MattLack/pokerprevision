@@ -242,53 +242,53 @@ public class Testes {
 		int[] aux = valor.clone();
 		int[] doispares = new int[2];
 		byte cont = 0;
+		int pares = 0;
 
-		for (int i = 0; i < 5; i++) {
-			for (int j = 1; j < 5; j++) {
-				if (aux[i] == aux[j] && i != j) {
-					doispares[cont] = aux[i];
-					aux[i] = 0;
-					i = j;
-					j = j + 1;
-					cont++;
-				}
-			}
-
-			if (cont == 2) {
-				if (doispares[0] != doispares[1]) {
-					return doispares[1];
-				}
+		for (int i = 1; i < 5; i++) {
+			if (aux[i] == aux[i - 1] && aux[i] != pares) {
+				// doispares[cont] = aux[i];
+				// System.out.println(doispares[cont]);
+				if (pares > 0)
+					return pares;
+				else
+					pares = aux[i];
+				cont++;
+				// System.out.println(cont);
 			}
 		}
+		/*
+		 * if (cont == 2) { if (doispares[0] != doispares[1]) {
+		 * 
+		 * return doispares[1]; } }
+		 */
 		return -1;
 
 	}
 
-	public int testDESEMPATADOISPARES(int[] valor) {
+	public int testDESEMPATADOISPARES(int[] valor1,int[] valor2) {
 
 		// precisa estar ordenado
+		
+		int dpar1 = testDOISPARES(valor1);
+		int dpar2 = testDOISPARES(valor2);
 
 		int[] aux = valor.clone();
 		int[] doispares = new int[2];
 		byte cont = 0;
 
-		for (int i = 0; i < 5; i++) {
-			for (int j = 1; j < 5; j++) {
-				if (aux[i] == aux[j] && i != j) {
-					doispares[cont] = aux[i];
-					aux[i] = 0;
-					i = j;
-					j = j + 1;
-					cont++;
-				}
-			}
-
-			if (cont == 2) {
-				if (doispares[0] != doispares[1]) {
-					return doispares[0];
-				}
+		for (int i = 1; i < 5; i++) {
+			if (aux[i] == aux[i - 1]) {
+				doispares[cont] = aux[i];
+				cont++;
 			}
 		}
+
+		if (cont == 2) {
+			if (doispares[0] != doispares[1]) {
+				return doispares[0];
+			}
+		}
+
 		return -1;
 
 	}
