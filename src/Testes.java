@@ -38,7 +38,11 @@ public class Testes {
 	public boolean testSTRAIGHTFLUSH(int[] valor, char[] naipe) {
 
 		if (testFLUSH(naipe)) {
-			// sequencia
+			if (testSEQUENCIA(valor)) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
@@ -92,6 +96,38 @@ public class Testes {
 			return false;
 		}
 
+	}
+
+	public boolean testSEQUENCIA(int[] valor) {
+
+		int[] aux = valor.clone();
+		Arrays.sort(aux);
+		int dif = 0;
+		int contDIF = 0;
+		int cont = 1;
+		for (int i = 0; i < 5; i++) {
+			if (cont != 5) {
+				dif = aux[cont] - aux[i];
+				if (dif == 1) {
+					contDIF++;
+					cont++;
+				} else {
+					return false;
+				}
+			}
+
+		}
+
+		if (contDIF == 4) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+	
+	public void testTRINCA(int[] valor){
+		
 	}
 
 }

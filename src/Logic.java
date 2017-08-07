@@ -469,41 +469,38 @@ public class Logic {
 
 	}
 
-	public static boolean testa(String mao) {
-		int flagPar = 0;
-		int flagTrinca = 0;
-		char flagTrincaChar = '0';
-		for (int i = 0; i < mao.length(); i += 2) {
-			int j = i + 2;
-			int cont = 0;
-			while (j < mao.length()) {
-				if (mao.charAt(i) == mao.charAt(j)) {
-					cont += 1;
+	public static boolean testa(int[] valor) {
+
+		int[] aux = valor.clone();
+		Arrays.sort(aux);
+		int dif = 0;
+		int contDIF = 0;
+		int cont = 1;
+		for (int i = 0; i < 5; i++) {
+			if (cont != 5) {
+				dif = aux[cont] - aux[i];
+				if (dif == 1) {
+					contDIF++;
+					cont++;
+				} else {
+					return false;
 				}
-				j += 2;
 			}
-			if (cont > 2) {
-				return false;
-			}
-			if (cont == 1 && (mao.charAt(i) != flagTrincaChar)) {
-				flagPar += 1;
-			}
-			if (cont == 2) {
-				flagTrinca += 1;
-				flagTrincaChar = mao.charAt(i);
-			}
+
 		}
-		if (flagTrinca == 1 && flagPar == 1) {
+		
+		if(contDIF == 4){
 			return true;
-		} else {
+		}else{
 			return false;
 		}
+		
 	}
 
 	public static void main(String[] args) {
-		int[] DOISparesHAND1 = { 8, 1, 1, 1, 2 };
+		int[] DOISparesHAND1 = { 1, 2, 7, 4, 5 };
 
-		System.out.println(testa("1C 1D 4C 4H 4S"));
+		System.out.println(testa(DOISparesHAND1));
 	}
 
 	// =========================================================================//
