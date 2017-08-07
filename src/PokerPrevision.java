@@ -46,37 +46,17 @@ public class PokerPrevision {
 		}
 
 	}
-	
-	public void PrevisionLine(){
-		
-		//lógica da previsão
-		//escrever no arquivo
-		
-	}
 
-	public void arquivoSaida(String texto, String arquivo) {
+	public void PrevisionLine() {
 
-		/**
-		 * Método responsável por escrever os dados no arquivo de saída
-		 */
-
-		try {
-			if ((new File(arquivo + ".txt").exists() == false)) {
-
-				new File(arquivo + ".txt").createNewFile();
-				escritor = new BufferedWriter(new FileWriter(arquivo + ".txt"));
-			}
-
-			escritor.append(texto + "\r\n");
-			escritor.flush();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// lógica da previsão
+		// escrever no arquivo
 
 	}
 
 	public static void main(String[] args) {
+
+		double tInicio = System.currentTimeMillis();// inicia marcação de tempo
 
 		Scanner teclado = new Scanner(System.in);
 
@@ -85,6 +65,9 @@ public class PokerPrevision {
 		System.out.println("M = 1000000 entradas");
 
 		String texto = teclado.nextLine();
+
+		double tFim = System.currentTimeMillis();
+		System.out.println("Tempo Gasto em segundos= " + ((tFim - tInicio) / 1000));
 
 	}
 

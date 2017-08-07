@@ -18,6 +18,22 @@ public class Logic {
 									// verificação de pares
 	int[] DOISparesHAND1 = new int[2];
 	int[] DOISparesHAND2 = new int[2];
+	int[] trincaHAND1 = new int[1];
+	int[] trincaHAND2 = new int[1];
+	int[] quadraHAND1 = new int[1];
+	int[] quadraHAND2 = new int[1];
+
+	public void logicHANDS(String text) {
+		dividirMAOS(text);
+
+		byte cartaAlta = testaCARTAALTA(4);
+		byte umpar = UMPAR();
+
+		if (umpar == -2) {
+			byte desempataumpar = desempataUMPAR();
+		}
+
+	}
 
 	public void dividirMAOS(String text) {
 
@@ -90,9 +106,6 @@ public class Logic {
 
 	}
 
-	// ================================= GETS
-	// ==================================//
-
 	public byte testaCARTAALTA(int ordem) {
 
 		int[] aux1 = this.valorHAND1.clone();
@@ -115,15 +128,22 @@ public class Logic {
 
 	}
 
-	public byte UMPAR(int[] hand1, int[] hand2) {
+	public byte UMPAR() {
 
 		int cont = 0;
 
+		int[] aux1 = this.valorHAND1.clone();
+		int[] aux2 = this.valorHAND2.clone();
+
 		for (int i = 0; i < 5; i++) {
 			for (int j = 0; j < 5; j++) {
-				if ((this.valorHAND1[i] == this.valorHAND1[j])) {
-					this.UMparHAND1[cont] = valorHAND1[i];
-					cont++;
+				if ((i != j) && (aux1[j] != 0)) {
+					if ((aux1[i] == aux1[j])) {
+						this.UMparHAND1[cont] = aux1[i];
+						aux1[i] = 0;
+						aux1[j] = 0;
+						cont++;
+					}
 				}
 			}
 		}
@@ -132,9 +152,13 @@ public class Logic {
 
 		for (int x = 0; x < 5; x++) {
 			for (int y = 0; y < 5; y++) {
-				if ((this.valorHAND2[x] == this.valorHAND2[y])) {
-					this.UMparHAND2[cont] = this.valorHAND2[x];
-					cont++;
+				if ((x != y) && (aux2[y] != 0)) {
+					if ((aux2[x] == aux2[y])) {
+						this.UMparHAND2[cont] = aux1[y];
+						aux2[x] = 0;
+						aux2[y] = 0;
+						cont++;
+					}
 				}
 			}
 		}
@@ -162,72 +186,79 @@ public class Logic {
 			return -1;
 		} else if (contA == 1 && contB == 1) { // empata
 			return -2;
-		} else if (contA > 1 && contB > 1) { // mais de um par
+		} else if (contA > 1 || contB > 1) { // mais de um par
 			return -3;
 		} else {
-			return 10;
+			return 10; // erro
 		}
 
 	}
 
 	public byte desempataUMPAR() {
-		for (int k = 0; k < 5; k++) {
 
-			if (this.UMparHAND1[k] != 0) {
-				contA++;
-			}
+		int a = this.UMparHAND1[0];
+		int b = this.UMparHAND2[0];
 
-			if (this.UMparHAND2[k] != 0) {
-				contB++;
-			}
-
+		if (a > b) { // mão1 > mão2
+			return 1;
+		} else if (a < b) { // mão2 > mão1
+			return 2;
+		} else if (a == b) { // mão1 = mão2
+			return 0;
 		}
+
+		return 10; // erro
+	}
+	
+	
+	
+	
+	
+
+	public byte DOISPARES() {
+
+		int[] aux1 = this.UMparHAND1.clone();
+		int[] aux2 = this.UMparHAND2.clone();
+
+		Arrays.sort(aux1);
+		Arrays.sort(aux2);
+
+		byte cont1 = 0;
+
+		for (int i = 0; i < 5; i++) {
+			if (i != 4) {
+				if (aux1[i] != 0) {
+					if (aux1[i] != aux1[i + 1]) {
+						cont1++;
+					} else if (aux1[i] == aux1[i + 1]) {
+						this.quadraHAND1[0] = aux1[i];
+					}
+				}
+
+			}
+		}
+
 	}
 
-	public byte getUMPAR() {
-		byte key = 0;
-		// retorna qual das mãos possui o maior número de pares
-		// atualiza casos 2 pares
-
-		if (this.UMparHAND1.length > this.UMparHAND2.length) {// m1 > m2
-			if (this.UMparHAND1.length > 1) { // se existir mais de um par na
-												// mão 1
-				this.DOISparesHAND1 = this.UMparHAND1; // repassa array
-				key = 1;
+	public boolean testaQuadra(String mao) {
+		for (int i = 0; i < mao.length(); i += 2) {
+			int j = i + 2;
+			int cont = 0;
+			while (j < mao.length()) {
+				if (mao.charAt(i) == mao.charAt(j)) {
+					cont += 1;
+				}
+				j += 2;
 			}
-			if (key == 1) { // retorna -1 se mão1 tem dois pares e mão2 não
-				return -1;
-			} else if (key == 0) { // retorna 1 se mão1 não tem dois pares e é
-									// maior que mão2
-				return 1;
+			if (cont > 3) {
+				return false;
 			}
-
-		} else if (this.UMparHAND1.length < this.UMparHAND2.length) {// m1 < m2
-
-			if (this.UMparHAND2.length > 1) { // se existir mais de um par na
-												// mão2
-				this.DOISparesHAND2 = this.UMparHAND2; // repassa array
-				key = 2;
-			}
-			if (key == 2) { // retorna -2 se mão2 tem dois pares e mão1 não
-				return -2;
-			} else if (key == 0) { // retorna 2 se mão2 não tem dois pares e é
-									// maior que mão1
-				return 2;
-			}
-		} else { // m1 == m2
-			if ((this.UMparHAND1.length > 1) && (this.UMparHAND2.length > 1)) {
-				this.DOISparesHAND1 = this.UMparHAND1;
-				this.DOISparesHAND2 = this.UMparHAND2;
-				return -3; // retorna -3 se os dois tiverem dois pares
-			} else {
-				return 0; // retorna 0 mão1 e mão2 tiverem 1 par
+			if (cont == 3) {
+				return true;
 			}
 
 		}
-
-		return -10; // erro
-
+		return false;
 	}
 
 	public byte getDOISPARES(byte num) {
@@ -274,10 +305,12 @@ public class Logic {
 		return -10;
 
 	}
-	/*
-	 * public static void main(String[] args) { int[] DOISparesHAND1 = new
-	 * int[2]; System.out.println(DOISparesHAND1[0]); }
-	 */
+
+	public static void main(String[] args) {
+		int[] DOISparesHAND1 = { 8, 1, 1, 1, 2 };
+
+		System.out.println(DOISparesHAND1[0]);
+	}
 
 	// =========================================================================//
 
