@@ -22,6 +22,7 @@ public class Logic {
 	private Logic() {
 
 	}
+	
 
 	public static Logic getInstance() {
 
