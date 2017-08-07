@@ -140,6 +140,7 @@ public class Logic {
 
 	/**
 	 * 
+	 * 
 	 * –Carta alta: Carta com maior valor. –Um par: duas cartas com o mesmo
 	 * valor. –Dois pares: dois pares diferentes. –Trinca: três cartas com o
 	 * mesmo valor. –Seqüencia (Straight): Todas as cinco cartas com valor
