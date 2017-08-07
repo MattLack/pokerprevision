@@ -22,9 +22,10 @@ public class Logic {
 	private Logic() {
 
 	}
-	
 
 	public static Logic getInstance() {
+
+		// singleton
 
 		if (instance == null) {
 			instance = new Logic();
@@ -41,39 +42,136 @@ public class Logic {
 
 		if ((Testes.getInstace().testROYALFLASH(ordValH1, naipeHAND1))
 				&& !(Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2))) {
-			//m1 tem royalflash m2 não
+			// m1 tem royalflash m2 não
 			venc1++;
-			break;
-		} else if ((Testes.getInstace().testROYALFLASH(ordValH1, naipeHAND1))
-				&& (Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2)) && (Testes.getInstace().testCARTAALTA(ordValH1, ordValH2)==1)) {
-			//m1 e m2 tem royalflash - m1 tem carta alta
-			venc1++;
-			break;
-		}else if ((Testes.getInstace().testSTRAIGHTFLUSH(ordValH1, naipeHAND1))
+
+		} else if ((Testes.getInstace().testSTRAIGHTFLUSH(ordValH1, naipeHAND1))
 				&& !(Testes.getInstace().testSTRAIGHTFLUSH(ordValH2, naipeHAND2))
 				&& !(Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2))) {
-			//m1 tem straight flush e m2 não e nem royal flash
+			// m1 tem straight flush e m2 não e nem royal flash
 			venc1++;
-			break;
-		} else if ((Testes.getInstace().testQUADRA(ordValH1)) && !(Testes.getInstace().testQUADRA(ordValH2))
-				&& !(Testes.getInstace().testSTRAIGHTFLUSH(ordValH2, naipeHAND2))
-				&& !(Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2))) {
-			// m1 tem quadra e m2 não, e nem strayight flush nem royal flash
-			venc1++;
-			break;
-		} else if ((Testes.getInstace().testQUADRA(ordValH1))
-				&& (Testes.getInstace().testCARTAALTA(ordValH1, ordValH2) == 1)
-				&& (Testes.getInstace().testQUADRA(ordValH2)) && !(Testes.getInstace().testSTRAIGHTFLUSH(ordValH2, naipeHAND2))
-				&& !(Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2))) {
-			// m1 e m2 tem quadra - m1 tem carta alta - m2 não tem straight flush e nem royalflash
-			venc1++;
-			break;
-		} else if (){
-			
-			venc1++;
-			break;
+
+		} else {
+
+			if ((Testes.getInstace().testSTRAIGHTFLUSH(ordValH1, naipeHAND1))
+					&& (Testes.getInstace().testSTRAIGHTFLUSH(ordValH2, naipeHAND2))) {
+				// desempata straight flush e m1 tem carta calta
+				int result = Testes.getInstace().testCARTAALTA(ordValH1, ordValH2);
+				if (result == 1) {
+					venc1++;
+				}
+			} else {
+
+				int quadra1 = Testes.getInstace().testQUADRA(ordValH1);
+				int quadra2 = Testes.getInstace().testQUADRA(valorHAND2);
+
+				// verifica quadra e o valor da mesma
+
+				if ((quadra1 > 0) && (quadra2 >= 0)) {
+
+					if (quadra1 > quadra2) {
+						venc1++;
+					}
+
+				} else {
+
+					if ((Testes.getInstace().testFULLHOUSE(ordValH1))
+							&& !(Testes.getInstace().testFULLHOUSE(ordValH2))) {
+						// mão1 tem fullhouse e mão2 não
+						venc1++;
+					} else if ((Testes.getInstace().testFULLHOUSE(ordValH1))
+							&& (Testes.getInstace().testFULLHOUSE(ordValH2))) {
+						// desempata fullhouse
+						int rFULLHOUSE = Testes.getInstace().testDESEMPATAFULLHOUSE(ordValH1, ordValH2);
+
+						if (rFULLHOUSE == 1) {
+							venc1++;
+						}
+
+					} else {
+
+						if ((Testes.getInstace().testFLUSH(naipeHAND1))
+								&& !(Testes.getInstace().testFLUSH(naipeHAND2))) {
+							// m1 tem flush e m2 não
+							venc1++;
+						} else if ((Testes.getInstace().testFLUSH(naipeHAND1))
+								&& (Testes.getInstace().testFLUSH(naipeHAND2))) {
+							// desempata flush
+							int rFLUSH = Testes.getInstace().testCARTAALTA(ordValH1, ordValH2);
+							if (rFLUSH == 1) {
+								venc1++;
+							}
+						} else {
+
+							if ((Testes.getInstace().testSEQUENCIA(ordValH1))
+									&& !(Testes.getInstace().testSEQUENCIA(ordValH2))) {
+								// m1 tem sequencia e m2 não
+								venc1++;
+							} else if ((Testes.getInstace().testSEQUENCIA(ordValH1))
+									&& (Testes.getInstace().testSEQUENCIA(ordValH2))) {
+								// desempata sequencia
+								int rSEQUENCIA = Testes.getInstace().testCARTAALTA(ordValH1, ordValH2);
+								if (rSEQUENCIA == 1) {
+									venc1++;
+								}
+							} else {
+								// m1 tem trica m2 não
+								int trinca1 = Testes.getInstace().testTRINCA(ordValH1);
+								int trinca2 = Testes.getInstace().testTRINCA(ordValH2);
+
+								if (trinca1 > 0 && trinca2 >= 0) {
+									if (trinca1 > trinca2) {
+										venc1++;
+									}
+								} else {
+									// m1 tem dois pares
+									int dPARES1 = Testes.getInstace().testDOISPARES(ordValH1);
+									int dPARES2 = Testes.getInstace().testDOISPARES(ordValH2);
+
+									if (dPARES1 > dPARES2) {
+										venc1++;
+									} else if (dPARES1 == dPARES2) {
+										// desempata dois pares
+										int dsPARES1 = Testes.getInstace().testDESEMPATADOISPARES(ordValH1);
+										int dsPARES2 = Testes.getInstace().testDESEMPATADOISPARES(ordValH2);
+
+										if (dsPARES1 > dsPARES2) {
+											venc1++;
+										}
+
+									} else {
+										// pares
+										int par1 = Testes.getInstace().testUMPAR(ordValH1);
+										int par2 = Testes.getInstace().testUMPAR(ordValH2);
+
+										if (par1 > par2) {
+											venc1++;
+										} else {
+											// carta alta
+											int cALTA = Testes.getInstace().testCARTAALTA(ordValH1, ordValH2);
+											if (cALTA == 1) {
+												venc1++;
+											}
+										}
+
+									}
+								}
+							}
+
+						}
+
+					}
+
+				}
+
+			}
+
 		}
 
+	}
+
+	public void getVENCEDOR() {
+		System.out.println("O jogador 1 venceu " + this.venc1 + " vezes.");
 	}
 
 	public void dividirMAOS(String text) {
@@ -154,19 +252,5 @@ public class Logic {
 		Arrays.sort(this.ordValH2);
 
 	}
-
-	// =========================================================================//
-
-	/**
-	 * 
-	 * 
-	 * –Carta alta: Carta com maior valor. –Um par: duas cartas com o mesmo
-	 * valor. –Dois pares: dois pares diferentes. –Trinca: três cartas com o
-	 * mesmo valor. –Seqüencia (Straight): Todas as cinco cartas com valor
-	 * consecutivo. –Flush: Todas as cartas do mesmo naipe. –Full House: uma
-	 * trinca e um par –Quadra: quatro cartas do mesmo valor –Straight Flush:
-	 * uma sequência com o mesmo naipe. –Royal Flash: 10, Valete, Dama, Rei e Ás
-	 * do mesmo naipe.
-	 */
 
 }

@@ -1,11 +1,8 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
+
 import java.io.FileReader;
-import java.io.FileWriter;
+
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class PokerPrevision {
 
@@ -13,7 +10,7 @@ public class PokerPrevision {
 
 	public static void PokerHands(String FILENAME) {
 
-		FILENAME = txtEntrada + FILENAME + ".txt";
+		//FILENAME = txtEntrada + FILENAME + ".txt";
 
 		BufferedReader br = null;
 		FileReader fr = null;
@@ -40,7 +37,7 @@ public class PokerPrevision {
 				fr.close();
 
 		} catch (IOException e) {
-			System.out.println(e.getMessage());
+			System.out.println("ERRO AO APONTAR ARQUIVO!");
 		}
 
 	}
@@ -49,16 +46,12 @@ public class PokerPrevision {
 
 		double tInicio = System.currentTimeMillis();// inicia marcação de tempo
 
-		Scanner teclado = new Scanner(System.in);
-
-		System.out.println("Digite uma das opções disponíveis para número de entradas: ");
-		System.out.println("K - 1000    entradas");
-		System.out.println("M = 1000000 entradas");
-
-		String texto = teclado.nextLine();
-		PokerHands(texto);
-
+		PokerHands("entradas/pokerK.txt");
+		
+		Logic.getInstance().getVENCEDOR();
+		
 		double tFim = System.currentTimeMillis(); // encerra marcação do tempo
+
 		System.out.println("Tempo Gasto em segundos= " + ((tFim - tInicio) / 1000));
 
 	}

@@ -53,7 +53,7 @@ public class Testes {
 
 	}
 
-	public boolean testQUADRA(int[] valor) {
+	public int testQUADRA(int[] valor) {
 
 		// List<int[]> listav = (Arrays.asList(valor));
 
@@ -61,11 +61,13 @@ public class Testes {
 
 		byte cont = 0;
 		boolean ok = false;
+		int value = 0;
 
 		for (int i = 0; i < 5; i++) {
 			for (int j = 1; j < 5; j++) {
 				if (valor[i] == valor[j]) {
 					cont++;
+					value = valor[j];
 					ok = true;
 				} else {
 					break;
@@ -73,17 +75,17 @@ public class Testes {
 			}
 			if (ok) {
 				if (cont == 4) {
-					return true;
+					return value;
 				} else {
-					return false;
+					return -1;
 				}
 			}
 		}
 
 		if (cont == 4) {
-			return true;
+			return value;
 		} else {
-			return false;
+			return -1;
 		}
 
 	}
@@ -92,7 +94,7 @@ public class Testes {
 
 		// precisa estar ordenado
 
-		if (testTRINCA(valor)) {
+		if (testTRINCA(valor) != -1) {
 
 			int[] aux = valor.clone();
 			byte cont = 0;
@@ -111,7 +113,7 @@ public class Testes {
 				if (ok) {
 					if (cont == 2) {
 						Arrays.sort(aux);
-						if (testUMPAR(aux)) {
+						if (testUMPAR(aux) != -1) {
 							return true;
 						} else {
 							return false;
@@ -127,6 +129,28 @@ public class Testes {
 		return false;
 
 		// trinca e par
+	}
+
+	public int testDESEMPATAFULLHOUSE(int[] valor1, int[] valor2) {
+
+		// precisa estar ordenado
+
+		if (testTRINCA(valor1) > testTRINCA(valor2)) {
+			return 1;
+		} else if (testTRINCA(valor1) < testTRINCA(valor2)) {
+			return -1;
+		} else if (testTRINCA(valor1) == testTRINCA(valor2)) {
+			if (testUMPAR(valor1) > testUMPAR(valor2)) {
+				return 1;
+			} else if (testUMPAR(valor1) == testUMPAR(valor2)) {
+				return testCARTAALTA(valor1, valor2);
+			} else {
+				return -1;
+			}
+		} else {
+			// trinca e par
+			return -1;
+		}
 	}
 
 	public boolean testFLUSH(char[] naipe) {
@@ -176,17 +200,19 @@ public class Testes {
 
 	}
 
-	public boolean testTRINCA(int[] valor) {
+	public int testTRINCA(int[] valor) {
 
 		// precisa estar ordenado
 
 		byte cont = 0;
 		boolean ok = false;
+		int value = 0;
 
 		for (int i = 0; i < 5; i++) {
 			for (int j = 1; j < 5; j++) {
 				if (valor[i] == valor[j] && i != j) {
 					cont++;
+					value = valor[j];
 					ok = true;
 				} else {
 					break;
@@ -194,22 +220,22 @@ public class Testes {
 			}
 			if (ok) {
 				if (cont == 2) {
-					return true;
+					return value;
 				} else {
-					return false;
+					return -1;
 				}
 			}
 		}
 
 		if (cont == 2) {
-			return true;
+			return value;
 		} else {
-			return false;
+			return -1;
 		}
 
 	}
 
-	public boolean testDOISPARES(int[] valor) {
+	public int testDOISPARES(int[] valor) {
 
 		// precisa estar ordenado
 
@@ -230,24 +256,55 @@ public class Testes {
 
 			if (cont == 2) {
 				if (doispares[0] != doispares[1]) {
-					return true;
+					return doispares[1];
 				}
 			}
 		}
-		return false;
+		return -1;
 
 	}
 
-	public boolean testUMPAR(int[] aux) {
+	public int testDESEMPATADOISPARES(int[] valor) {
+
+		// precisa estar ordenado
+
+		int[] aux = valor.clone();
+		int[] doispares = new int[2];
+		byte cont = 0;
+
+		for (int i = 0; i < 5; i++) {
+			for (int j = 1; j < 5; j++) {
+				if (aux[i] == aux[j] && i != j) {
+					doispares[cont] = aux[i];
+					aux[i] = 0;
+					i = j;
+					j = j + 1;
+					cont++;
+				}
+			}
+
+			if (cont == 2) {
+				if (doispares[0] != doispares[1]) {
+					return doispares[0];
+				}
+			}
+		}
+		return -1;
+
+	}
+
+	public int testUMPAR(int[] aux) {
 		// precisa estar ordenado
 
 		byte cont = 0;
 		boolean ok = false;
+		int value = 0;
 
 		for (int i = 0; i < 5; i++) {
 			for (int j = 1; j < 5; j++) {
 				if (aux[i] == aux[j] && i != j && aux[i] != 0 && aux[j] != 0) {
 					cont++;
+					value = aux[j];
 					ok = true;
 					break;
 				}
@@ -255,14 +312,14 @@ public class Testes {
 
 			if (ok) {
 				if (cont == 1) {
-					return true;
+					return value;
 				} else {
-					return false;
+					return -1;
 				}
 
 			}
 		}
-		return false;
+		return -1;
 
 	}
 
