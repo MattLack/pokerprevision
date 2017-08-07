@@ -1,7 +1,19 @@
 import java.util.Arrays;
-import java.util.List;
 
 public class Testes {
+
+	private static Testes instance = null;
+
+	private Testes() {
+
+	}
+
+	public static Testes getInstace() {
+		if (instance == null) {
+			instance = new Testes();
+		}
+		return instance;
+	}
 
 	public boolean testROYALFLASH(int[] aux2, char[] naipe) {
 
@@ -77,6 +89,43 @@ public class Testes {
 	}
 
 	public boolean testFULLHOUSE(int[] valor) {
+
+		// precisa estar ordenado
+
+		if (testTRINCA(valor)) {
+
+			int[] aux = valor.clone();
+			byte cont = 0;
+			boolean ok = false;
+
+			for (int i = 0; i < 5; i++) {
+				for (int j = 1; j < 5; j++) {
+					if (aux[i] == aux[j] && i != j) {
+						aux[i] = 0;
+						cont++;
+						ok = true;
+					} else {
+						break;
+					}
+				}
+				if (ok) {
+					if (cont == 2) {
+						Arrays.sort(aux);
+						if (testUMPAR(aux)) {
+							return true;
+						} else {
+							return false;
+						}
+					}
+				}
+
+			}
+
+		} else {
+			return false;
+		}
+		return false;
+
 		// trinca e par
 	}
 
@@ -136,7 +185,7 @@ public class Testes {
 
 		for (int i = 0; i < 5; i++) {
 			for (int j = 1; j < 5; j++) {
-				if (valor[i] == valor[j]) {
+				if (valor[i] == valor[j] && i != j) {
 					cont++;
 					ok = true;
 				} else {
@@ -189,13 +238,48 @@ public class Testes {
 
 	}
 
-	public boolean testUMPAR(int[] valor) {
+	public boolean testUMPAR(int[] aux) {
 		// precisa estar ordenado
+
+		byte cont = 0;
+		boolean ok = false;
+
+		for (int i = 0; i < 5; i++) {
+			for (int j = 1; j < 5; j++) {
+				if (aux[i] == aux[j] && i != j && aux[i] != 0 && aux[j] != 0) {
+					cont++;
+					ok = true;
+					break;
+				}
+			}
+
+			if (ok) {
+				if (cont == 1) {
+					return true;
+				} else {
+					return false;
+				}
+
+			}
+		}
+		return false;
 
 	}
 
-	public byte testCARTAALTA(int[] valor) {
+	public byte testCARTAALTA(int[] valor1, int[] valor2) {
 		// precisa estar ordenado
+
+		for (int i = 4; 0 <= i; i--) {
+
+			if (valor1[i] > valor2[i]) {
+				return 1;
+			} else if (valor2[i] > valor1[i]) {
+				return 2;
+			}
+
+		}
+
+		return 0;
 
 	}
 

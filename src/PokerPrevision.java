@@ -13,7 +13,7 @@ public class PokerPrevision {
 	private static final String txtSaida = "saida/poker";
 	private BufferedWriter escritor = null;
 
-	public void PokerHands(String FILENAME) {
+	public static void PokerHands(String FILENAME) {
 
 		FILENAME = txtEntrada + FILENAME + ".txt";
 
@@ -65,7 +65,8 @@ public class PokerPrevision {
 		System.out.println("M = 1000000 entradas");
 
 		String texto = teclado.nextLine();
-
+		PokerHands(texto);
+		
 		double tFim = System.currentTimeMillis();
 		System.out.println("Tempo Gasto em segundos= " + ((tFim - tInicio) / 1000));
 
