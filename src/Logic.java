@@ -28,9 +28,12 @@ public class Logic {
 
 		byte cartaAlta = testaCARTAALTA(4);
 		byte umpar = UMPAR();
+		byte desempataumpar;
 
 		if (umpar == -2) {
-			byte desempataumpar = desempataUMPAR();
+			desempataumpar = desempataUMPAR();
+		} else if (umpar == -3) {
+			// dois pares
 		}
 
 	}
@@ -209,43 +212,203 @@ public class Logic {
 
 		return 10; // erro
 	}
-	
-	
-	
-	
-	
 
-	public byte DOISPARES() {
+	public boolean testaDOISPARES(String hand) {
 
-		int[] aux1 = this.UMparHAND1.clone();
-		int[] aux2 = this.UMparHAND2.clone();
+		int valor;
+		int nvalor;
+		int diferenca;
 
-		Arrays.sort(aux1);
-		Arrays.sort(aux2);
+		for (int i = 0; i < 4; i++) {
+			if (this.UMparHAND1[i] != 0) {
+				valor = this.UMparHAND1[i];
+				nvalor = this.UMparHAND1[i + 1];
+				diferenca = valor - nvalor;
 
-		byte cont1 = 0;
+				if (diferenca != 0) {
 
-		for (int i = 0; i < 5; i++) {
-			if (i != 4) {
-				if (aux1[i] != 0) {
-					if (aux1[i] != aux1[i + 1]) {
-						cont1++;
-					} else if (aux1[i] == aux1[i + 1]) {
-						this.quadraHAND1[0] = aux1[i];
-					}
 				}
-
 			}
+
 		}
 
+		int tPAR = 0;
+		for (int i = 0; i < hand.length(); i += 2) {
+			int j = i + 2;
+			int cont = 0;
+			while (j < hand.length()) {
+				if (hand.charAt(i) == hand.charAt(j)) {
+					cont += 1;
+				}
+				j += 2;
+			}
+			if (cont > 1) {
+				return false;
+			}
+			if (cont == 1) {
+				tPAR += cont;
+			}
+		}
+		if (tPAR == 2) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
-	public boolean testaQuadra(String mao) {
+	public boolean testaTRINCA(String hand) {
+
+		int tPAR = 0;
+		int tTRINCA = 0;
+		char tTRINCAChar = '0';
+		for (int i = 0; i < hand.length(); i += 2) {
+			int j = i + 2;
+			int cont = 0;
+			while (j < hand.length()) {
+				if (hand.charAt(i) == hand.charAt(j)) {
+					cont += 1;
+				}
+				j += 2;
+			}
+			if (cont > 2) {
+				return false;
+			}
+			if (cont == 1 && (hand.charAt(i) != tTRINCAChar)) {
+				tPAR += 1;
+			}
+			if (cont == 2) {
+				tTRINCA += 1;
+				tTRINCAChar = hand.charAt(i);
+			}
+		}
+		if (tTRINCA == 1 && tPAR == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean testaSEQUENCIA(String mao) {
+		int[] cartas = new int[5];
+		for (int i = 0; i < mao.length(); i += 2) {
+			if (mao.charAt(i) == 'A') {
+				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
+					if (cartas[i1] == 0) {
+						cartas[i1] = 14;
+						break;
+					}
+				}
+			}
+			if (mao.charAt(i) == 'K') {
+				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
+					if (cartas[i1] == 0) {
+						cartas[i1] = 13;
+						break;
+					}
+				}
+			}
+			if (mao.charAt(i) == 'Q') {
+				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
+					if (cartas[i1] == 0) {
+						cartas[i1] = 12;
+						break;
+					}
+				}
+			}
+			if (mao.charAt(i) == 'J') {
+				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
+					if (cartas[i1] == 0) {
+						cartas[i1] = 11;
+						break;
+					}
+				}
+			}
+			if (mao.charAt(i) == 'T') {
+				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
+					if (cartas[i1] == 0) {
+						cartas[i1] = 10;
+						break;
+					}
+				}
+			}
+			if (Character.isDigit(mao.charAt(i))) {
+				for (int i1 = 0; i1 < cartas.length; i1 += 1) {
+					if (cartas[i1] == 0) {
+						cartas[i1] = Character.getNumericValue(mao.charAt(i));
+						break;
+					}
+				}
+			}
+		}
+		Arrays.sort(cartas);
+		if (cartas[4] == 14 && cartas[0] == 2) {
+			int[] cartas1 = cartas.clone();
+			cartas1[4] = 1;
+			Arrays.sort(cartas1);
+			for (int j1 = 0; j1 < cartas1.length - 1; j1 += 1) {
+				if (cartas1[j1 + 1] - cartas1[j1] != 1) {
+					return false;
+				}
+			}
+			return true;
+		}
+		if (cartas[4] <= 14 && cartas[0] >= 2) {
+			for (int j1 = 0; j1 < cartas.length - 1; j1 += 1) {
+				if (cartas[j1 + 1] - cartas[j1] != 1) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
+	public boolean testaFLUSH(String mao) {
+		for (int i = 1; i < mao.length() - 2; i += 2) {
+			if (mao.charAt(i) != mao.charAt(i + 2)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static boolean testaFullHouse(String mao) {
+		int flagPar = 0;
+		int flagTrinca = 0;
+		char flagTrincaChar = '0';
 		for (int i = 0; i < mao.length(); i += 2) {
 			int j = i + 2;
 			int cont = 0;
 			while (j < mao.length()) {
 				if (mao.charAt(i) == mao.charAt(j)) {
+					cont += 1;
+				}
+				j += 2;
+			}
+			if (cont > 2) {
+				return false;
+			}
+			if (cont == 1 && (mao.charAt(i) != flagTrincaChar)) {
+				flagPar += 1;
+			}
+			if (cont == 2) {
+				flagTrinca += 1;
+				flagTrincaChar = mao.charAt(i);
+			}
+		}
+		if (flagTrinca == 1 && flagPar == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean testaQUADRA(String hand) {
+
+		for (int k = 0; k < hand.length(); k += 2) {
+			int j = k + 2;
+			int cont = 0;
+			while (j < hand.length()) {
+				if (hand.charAt(k) == hand.charAt(j)) {
 					cont += 1;
 				}
 				j += 2;
@@ -306,107 +469,45 @@ public class Logic {
 
 	}
 
+	public static boolean testa(String mao) {
+		int flagPar = 0;
+		int flagTrinca = 0;
+		char flagTrincaChar = '0';
+		for (int i = 0; i < mao.length(); i += 2) {
+			int j = i + 2;
+			int cont = 0;
+			while (j < mao.length()) {
+				if (mao.charAt(i) == mao.charAt(j)) {
+					cont += 1;
+				}
+				j += 2;
+			}
+			if (cont > 2) {
+				return false;
+			}
+			if (cont == 1 && (mao.charAt(i) != flagTrincaChar)) {
+				flagPar += 1;
+			}
+			if (cont == 2) {
+				flagTrinca += 1;
+				flagTrincaChar = mao.charAt(i);
+			}
+		}
+		if (flagTrinca == 1 && flagPar == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public static void main(String[] args) {
 		int[] DOISparesHAND1 = { 8, 1, 1, 1, 2 };
 
-		System.out.println(DOISparesHAND1[0]);
+		System.out.println(testa("1C 1D 4C 4H 4S"));
 	}
 
 	// =========================================================================//
 
-	public void Par(String hand1, String hand2) {
-
-		// par de duas cartas com mesmo valor - não considera naipe
-
-		int carta1;
-		int carta2;
-		int cont = 0;
-		int[] paresh1 = new int[5];
-		int[] paresh2 = new int[5];
-
-		for (int v1 = 0; v1 <= 14; v1 += 3) {
-
-			if (hand1.charAt(v1) == 'A') {
-				carta1 = 14;
-			}
-			if (hand1.charAt(v1) == 'K') {
-				carta1 = 13;
-			}
-			if (hand1.charAt(v1) == 'Q') {
-				carta1 = 12;
-			}
-			if (hand1.charAt(v1) == 'J') {
-				carta1 = 11;
-			}
-			if (hand1.charAt(v1) == 'T') {
-				carta1 = 10;
-			} else {
-				carta1 = Character.getNumericValue(hand1.charAt(v1));
-			}
-
-			paresh1[cont] = carta1;
-			cont++;
-
-		}
-
-		cont = 0; // reseta cont
-		Arrays.sort(paresh1); // ordena array de valores
-
-		for (int v2 = 0; v2 <= 14; v2 += 3) {
-
-			if (hand2.charAt(v2) == 'A') {
-				carta2 = 14;
-			}
-			if (hand2.charAt(v2) == 'K') {
-				carta2 = 13;
-			}
-			if (hand2.charAt(v2) == 'Q') {
-				carta2 = 12;
-			}
-			if (hand2.charAt(v2) == 'J') {
-				carta2 = 11;
-			}
-			if (hand2.charAt(v2) == 'T') {
-				carta2 = 10;
-			} else {
-				carta2 = Character.getNumericValue(hand2.charAt(v2));
-			}
-
-			paresh2[cont] = carta2;
-			cont++;
-
-		}
-
-		Arrays.sort(paresh2); // ordena array de valores
-		cont = 0;
-		int cont1 = 0;
-
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				if ((paresh1[i] == paresh1[j]) && (cont1 < 2)) {
-					this.UMparHAND1[cont] = paresh1[i];
-					cont++;
-					cont1++;
-				}
-			}
-			cont1 = 0;
-		}
-
-		cont = 0;
-		cont1 = 0;
-
-		for (int x = 0; x < 5; x++) {
-			for (int y = 0; y < 5; y++) {
-				if ((paresh2[x] == paresh2[y]) && (cont1 < 2)) {
-					this.UMparHAND2[cont] = paresh2[x];
-					cont++;
-					cont1++;
-				}
-			}
-			cont1 = 0;
-		}
-
-	}
 	/**
 	 * 
 	 * –Carta alta: Carta com maior valor. –Um par: duas cartas com o mesmo

@@ -53,7 +53,7 @@ public class Vencedor {
 		
 		//lê o arquivo
 		//*
-		try (Scanner dados= new Scanner(new File("D:\\Paradigmas\\pokerWinner\\src\\pokerWinner\\pokerm.txt"))){
+		try (Scanner dados= new Scanner(new File("entrada/pokerK.txt"))){
 			//Itera sobre os dados
 			while(dados.hasNextLine()){
 				int cont=0;
