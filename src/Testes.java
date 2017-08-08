@@ -58,6 +58,7 @@ public class Testes {
 		// List<int[]> listav = (Arrays.asList(valor));
 
 		// precisa estar ordenado
+		// retornando erro -1 casos de quadra
 
 		byte cont = 0;
 		boolean ok = false;
@@ -96,7 +97,7 @@ public class Testes {
 
 		if (testTRINCA(valor) != -1) {
 
-			int[] aux = valor.clone();
+			int[] aux = (int[]) valor.clone();
 			byte cont = 0;
 			boolean ok = false;
 
@@ -175,6 +176,7 @@ public class Testes {
 	public boolean testSEQUENCIA(int[] aux) {
 
 		// precisa estar ordenado
+		// retestado
 
 		int dif = 0;
 		int contDIF = 0;
@@ -203,6 +205,7 @@ public class Testes {
 	public int testTRINCA(int[] valor) {
 
 		// precisa estar ordenado
+		// retestado
 
 		byte cont = 0;
 		boolean ok = false;
@@ -214,8 +217,6 @@ public class Testes {
 					cont++;
 					value = valor[j];
 					ok = true;
-				} else {
-					break;
 				}
 			}
 			if (ok) {
@@ -238,32 +239,33 @@ public class Testes {
 	public int testDOISPARES(int[] valor) {
 
 		// precisa estar ordenado
+		// retestado
 
-		int[] aux = valor.clone();
-		int[] doispares = new int[2];
-		byte cont = 0;
+		int[] aux = (int[]) valor.clone();
 		int pares = 0;
 
 		for (int i = 1; i < 5; i++) {
 			if ((aux[i] == aux[i - 1]) && (aux[i] != pares)) {
-				
-				
-				
+
 				if (pares > 0)
 					pares = aux[i];
-				else
-					return pares;
+				else if (pares == 0) {
+					pares = aux[i];
+				}
 
 			}
 		}
-
-		return -1;
+		if (pares == 0) {
+			return -1;
+		} else
+			return pares;
 
 	}
 
 	public int testDESEMPATADOISPARES(int[] valor1, int[] valor2) {
 
 		// precisa estar ordenado
+		// retestado
 
 		int dpar1 = testDOISPARES(valor1);
 		int dpar2 = testDOISPARES(valor2);
@@ -301,10 +303,7 @@ public class Testes {
 
 	public int testUMPAR(int[] aux) {
 		// precisa estar ordenado
-
-		byte cont = 0;
-		boolean ok = false;
-		int value = 0;
+		// retestado
 
 		for (int i = 1; i < aux.length; i++) {
 			if (aux[i] == aux[i - 1]) {
@@ -318,6 +317,7 @@ public class Testes {
 
 	public byte testCARTAALTA(int[] valor1, int[] valor2) {
 		// precisa estar ordenado
+		// restestado
 
 		for (int i = 4; 0 <= i; i--) {
 
@@ -331,6 +331,13 @@ public class Testes {
 
 		return 0;
 
+	}
+
+	public static void main(String[] args) {
+		int[] a = new int[] { 3, 3, 3, 5, 6 };
+		int[] c = new int[] { 2, 2, 3, 3, 4 };
+		int b = Testes.getInstace().testTRINCA(a);
+		System.out.println(b);
 	}
 
 }
