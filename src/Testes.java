@@ -94,8 +94,13 @@ public class Testes {
 	public boolean testFULLHOUSE(int[] valor) {
 
 		// precisa estar ordenado
+		// erro caso - int[] a = new int[] { 3, 3, 4, 4, 4 };
 
 		if (testTRINCA(valor) != -1) {
+
+			if (testDOISPARES(valor)) {
+
+			}
 
 			int[] aux = (int[]) valor.clone();
 			byte cont = 0;
@@ -135,6 +140,7 @@ public class Testes {
 	public int testDESEMPATAFULLHOUSE(int[] valor1, int[] valor2) {
 
 		// precisa estar ordenado
+		// retestado
 
 		if (testTRINCA(valor1) > testTRINCA(valor2)) {
 			return 1;
@@ -155,6 +161,8 @@ public class Testes {
 	}
 
 	public boolean testFLUSH(char[] naipe) {
+
+		// retestado
 
 		int v = 0;
 		char naipev = naipe[0];
@@ -334,9 +342,10 @@ public class Testes {
 	}
 
 	public static void main(String[] args) {
-		int[] a = new int[] { 3, 3, 3, 5, 6 };
-		int[] c = new int[] { 2, 2, 3, 3, 4 };
-		int b = Testes.getInstace().testTRINCA(a);
+		int[] a = new int[] { 3, 3, 4, 4, 4 };
+		int[] c = new int[] { 3, 3, 3, 5, 5 };
+		char[] n = new char[] { 'H', 'H', 'C', 'H', 'H' };
+		int b = Testes.getInstace().testDOISPARES(a);
 		System.out.println(b);
 	}
 
