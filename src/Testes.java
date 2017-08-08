@@ -70,9 +70,8 @@ public class Testes {
 					cont++;
 					value = valor[j];
 					ok = true;
-				} else {
-					break;
 				}
+				
 			}
 			if (ok) {
 				if (cont == 4) {
@@ -343,10 +342,10 @@ public class Testes {
 	}
 
 	public static void main(String[] args) {
-		int[] a = new int[] { 2, 2, 3, 5, 5 };
+		int[] a = new int[] { 2, 2, 2, 2, 5 };
 		int[] c = new int[] { 3, 3, 3, 5, 5 };
 		char[] n = new char[] { 'H', 'H', 'C', 'H', 'H' };
-		boolean b = Testes.getInstace().testFULLHOUSE(a);
+		int b = Testes.getInstace().testQUADRA(a);
 		System.out.println(b);
 	}
 
