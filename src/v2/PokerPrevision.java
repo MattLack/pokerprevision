@@ -27,8 +27,8 @@ public class PokerPrevision {
 
 			br = new BufferedReader(new FileReader(FILENAME));
 
-			while ((sCurrentLine = br.readLine()) != null) {
-				if (!sCurrentLine.equals("\n") && !sCurrentLine.equals("") && !sCurrentLine.equals(" ")) {
+			for (;((sCurrentLine = br.readLine()) != null);) {
+				if (!sCurrentLine.equals("\n") & !sCurrentLine.equals("") & !sCurrentLine.equals(" ")) {
 					Logic.getInstance().logicHANDS(sCurrentLine);
 					
 					//System.out.println(n);

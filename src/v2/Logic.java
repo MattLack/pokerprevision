@@ -8,12 +8,12 @@ public class Logic {
 
 	String hand1;
 	String hand2;
-	int[] valorHAND1 = new int[5];
+	Integer[] valorHAND1 = new Integer[5];
 	char[] naipeHAND1 = new char[5];
-	int[] valorHAND2 = new int[5];
+	Integer[] valorHAND2 = new Integer[5];
 	char[] naipeHAND2 = new char[5];
-	int[] ordValH1 = new int[5];
-	int[] ordValH2 = new int[5];
+	Integer[] ordValH1 = new Integer[5];
+	Integer[] ordValH2 = new Integer[5];
 
 	// Vencedor 1
 	long venc1 = 0;
@@ -37,7 +37,7 @@ public class Logic {
 
 	public void logicHANDS(String text) {
 
-		//this.venc1 = 0;
+		// this.venc1 = 0;
 
 		dividirMAOS(text);
 
@@ -45,7 +45,8 @@ public class Logic {
 				&& !(Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2))) {
 			// m1 tem royalflash m2 não
 			venc1++;
-			//System.out.println((Testes.getInstace().testROYALFLASH(ordValH1, naipeHAND1)));
+			// System.out.println((Testes.getInstace().testROYALFLASH(ordValH1,
+			// naipeHAND1)));
 
 		} else if ((Testes.getInstace().testSTRAIGHTFLUSH(ordValH1, naipeHAND1))
 				&& !(Testes.getInstace().testSTRAIGHTFLUSH(ordValH2, naipeHAND2))
@@ -134,7 +135,7 @@ public class Logic {
 										venc1++;
 									} else if (dPARES1 == dPARES2) {
 										// desempata dois pares
-										int dsPARES1 = Testes.getInstace().testDESEMPATADOISPARES(ordValH1,ordValH2);
+										int dsPARES1 = Testes.getInstace().testDESEMPATADOISPARES(ordValH1, ordValH2);
 
 										if (dsPARES1 > 0) {
 											venc1++;
@@ -186,7 +187,7 @@ public class Logic {
 		int cont1 = 0;
 		int cont2 = 0;
 
-		for (int v1 = 0; v1 <= 14; v1 += 3) {
+		for (int v1 = 13; v1 >= 0; v1 -= 3) {
 
 			if (this.hand1.charAt(v1) == 'A') {
 				carta1 = 14;
@@ -211,7 +212,7 @@ public class Logic {
 
 		}
 
-		for (int v2 = 0; v2 <= 14; v2 += 3) {
+		for (int v2 = 13; v2 >= 0; v2 -= 3) {
 
 			if (this.hand2.charAt(v2) == 'A') {
 				carta2 = 14;
@@ -238,17 +239,17 @@ public class Logic {
 
 		cont1 = 0;
 
-		for (int n1 = 1; n1 <= 14; n1 += 3) {
-			this.naipeHAND1[cont1] = this.hand1.charAt(n1);
-			this.naipeHAND2[cont1] = this.hand2.charAt(n1);
+		for (int v2 = 13; v2 >= 0; v2 -= 3) {
+			this.naipeHAND1[cont1] = this.hand1.charAt(v2);
+			this.naipeHAND2[cont1] = this.hand2.charAt(v2);
 			cont1++;
 		}
 
-		this.ordValH1 = (int[]) this.valorHAND1.clone();
+		this.ordValH1 = (Integer[]) this.valorHAND1.clone();
 
 		Arrays.sort(this.ordValH1);
 
-		this.ordValH2 = (int[]) this.valorHAND2.clone();
+		this.ordValH2 = (Integer[]) this.valorHAND2.clone();
 
 		Arrays.sort(this.ordValH2);
 

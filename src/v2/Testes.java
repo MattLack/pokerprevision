@@ -17,7 +17,7 @@ public class Testes {
 		return instance;
 	}
 
-	public boolean testROYALFLASH(int[] aux2, char[] naipe) {
+	public boolean testROYALFLASH(Integer[] ordValH1, char[] naipe) {
 
 		boolean v = testFLUSH(naipe);
 
@@ -27,7 +27,7 @@ public class Testes {
 		int base = 10;
 
 		for (int j = 0; j < 5; j++) {
-			if (aux2[j] == base) {
+			if (ordValH1[j] == base) {
 				valort++;
 				base++;
 			}
@@ -41,7 +41,7 @@ public class Testes {
 
 	}
 
-	public boolean testSTRAIGHTFLUSH(int[] valor, char[] naipe) {
+	public boolean testSTRAIGHTFLUSH(Integer[] valor, char[] naipe) {
 		
 		// ok
 
@@ -57,7 +57,7 @@ public class Testes {
 
 	}
 
-	public int testQUADRA(int[] valor) {
+	public int testQUADRA(Integer[] valor) {
 
 		// precisa estar ordenado
 		// retestado ok
@@ -89,7 +89,7 @@ public class Testes {
 
 	}
 
-	public boolean testFULLHOUSE(int[] valor) {
+	public boolean testFULLHOUSE(Integer[] valor) {
 
 		// precisa estar ordenado
 		// retestado - ok
@@ -107,7 +107,7 @@ public class Testes {
 		// trinca e par
 	}
 
-	public int testDESEMPATAFULLHOUSE(int[] valor1, int[] valor2) {
+	public int testDESEMPATAFULLHOUSE(Integer[] valor1, Integer[] valor2) {
 
 		// precisa estar ordenado
 		// retestado - ok
@@ -151,7 +151,7 @@ public class Testes {
 
 	}
 
-	public boolean testSEQUENCIA(int[] aux) {
+	public boolean testSEQUENCIA(Integer[] aux) {
 
 		// precisa estar ordenado
 		// retestado
@@ -180,7 +180,7 @@ public class Testes {
 
 	}
 
-	public int testTRINCA(int[] valor) {
+	public int testTRINCA(Integer[] valor) {
 
 		// precisa estar ordenado
 		// retestado ok
@@ -212,12 +212,12 @@ public class Testes {
 
 	}
 
-	public int testDOISPARES(int[] valor) {
+	public int testDOISPARES(Integer[] valor) {
 
 		// precisa estar ordenado
 		// retestado
 
-		int[] aux = (int[]) valor.clone();
+		Integer[] aux = (Integer[]) valor.clone();
 		int pares = 0;
 
 		for (int i = 1; i < 5; i++) {
@@ -238,12 +238,12 @@ public class Testes {
 
 	}
 
-	public boolean testDOISPARESb(int[] valor) {
+	public boolean testDOISPARESb(Integer[] valor) {
 
 		// precisa estar ordenado
 		// retestado
 
-		int[] aux = (int[]) valor.clone();
+		Integer[] aux = (Integer[]) valor.clone();
 		int pares = 0;
 		int cont = 0;
 
@@ -269,7 +269,7 @@ public class Testes {
 
 	}
 
-	public int testDESEMPATADOISPARES(int[] valor1, int[] valor2) {
+	public int testDESEMPATADOISPARES(Integer[] valor1, Integer[] valor2) {
 
 		// precisa estar ordenado
 		// retestado
@@ -308,7 +308,7 @@ public class Testes {
 		}
 	}
 
-	public int testUMPAR(int[] aux) {
+	public int testUMPAR(Integer[] aux) {
 		// precisa estar ordenado
 		// retestado
 
@@ -322,7 +322,7 @@ public class Testes {
 
 	}
 
-	public byte testCARTAALTA(int[] valor1, int[] valor2) {
+	public byte testCARTAALTA(Integer[] valor1, Integer[] valor2) {
 		// precisa estar ordenado
 		// restestado
 		int i = 4;
@@ -343,8 +343,8 @@ public class Testes {
 	}
 
 	public static void main(String[] args) {
-		int[] a = new int[] { 1, 3, 3, 3, 3 };
-		int[] c = new int[] { 3, 3, 3, 5, 5 };
+		Integer[] a = new Integer[] { 1, 3, 3, 3, 3 };
+		Integer[] c = new Integer[] { 3, 3, 3, 5, 5 };
 		char[] n = new char[] { 'H', 'H', 'C', 'H', 'H' };
 		int b = Testes.getInstace().testQUADRA(a);
 		System.out.println(b);
