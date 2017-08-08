@@ -40,6 +40,8 @@ public class Testes {
 	}
 
 	public boolean testSTRAIGHTFLUSH(int[] valor, char[] naipe) {
+		
+		// ok
 
 		if (testFLUSH(naipe)) {
 			if (testSEQUENCIA(valor)) {
@@ -55,38 +57,33 @@ public class Testes {
 
 	public int testQUADRA(int[] valor) {
 
-		// List<int[]> listav = (Arrays.asList(valor));
-
 		// precisa estar ordenado
-		// retornando erro -1 casos de quadra
+		// retestado ok
 
 		byte cont = 0;
-		boolean ok = false;
 		int value = 0;
 
 		for (int i = 0; i < 5; i++) {
-			for (int j = 1; j < 5; j++) {
+			for (int j = 0; j < 5; j++) {
 				if (valor[i] == valor[j]) {
+
 					cont++;
 					value = valor[j];
-					ok = true;
-				}
-				
-			}
-			if (ok) {
-				if (cont == 4) {
-					return value;
-				} else {
-					return -1;
-				}
-			}
-		}
 
-		if (cont == 4) {
-			return value;
-		} else {
-			return -1;
+				}
+			}
+			if (cont >= 4) {
+				return value;
+			} else {
+				value = 0;
+				cont = 0;
+			}
+
 		}
+		if (value > 0)
+			return value;
+		else
+			return -1;
 
 	}
 
@@ -326,8 +323,9 @@ public class Testes {
 	public byte testCARTAALTA(int[] valor1, int[] valor2) {
 		// precisa estar ordenado
 		// restestado
+		int i = 4;
 
-		for (int i = 4; 0 <= i; i--) {
+		while (0 <= i) {
 
 			if (valor1[i] > valor2[i]) {
 				return 1;
@@ -335,6 +333,7 @@ public class Testes {
 				return 2;
 			}
 
+			i--;
 		}
 
 		return 0;
@@ -342,7 +341,7 @@ public class Testes {
 	}
 
 	public static void main(String[] args) {
-		int[] a = new int[] { 2, 2, 2, 2, 5 };
+		int[] a = new int[] { 1, 3, 3, 3, 3 };
 		int[] c = new int[] { 3, 3, 3, 5, 5 };
 		char[] n = new char[] { 'H', 'H', 'C', 'H', 'H' };
 		int b = Testes.getInstace().testQUADRA(a);
