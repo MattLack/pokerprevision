@@ -94,45 +94,17 @@ public class Testes {
 	public boolean testFULLHOUSE(int[] valor) {
 
 		// precisa estar ordenado
-		// erro caso - int[] a = new int[] { 3, 3, 4, 4, 4 };
+		// retestado - ok
 
 		if (testTRINCA(valor) != -1) {
-
-			if (testDOISPARES(valor)) {
-
+			if (testDOISPARESb(valor)) {
+				return true;
+			} else {
+				return false;
 			}
-
-			int[] aux = (int[]) valor.clone();
-			byte cont = 0;
-			boolean ok = false;
-
-			for (int i = 0; i < 5; i++) {
-				for (int j = 1; j < 5; j++) {
-					if (aux[i] == aux[j] && i != j) {
-						aux[i] = 0;
-						cont++;
-						ok = true;
-					} else {
-						break;
-					}
-				}
-				if (ok) {
-					if (cont == 2) {
-						Arrays.sort(aux);
-						if (testUMPAR(aux) != -1) {
-							return true;
-						} else {
-							return false;
-						}
-					}
-				}
-
-			}
-
 		} else {
 			return false;
 		}
-		return false;
 
 		// trinca e par
 	}
@@ -140,16 +112,16 @@ public class Testes {
 	public int testDESEMPATAFULLHOUSE(int[] valor1, int[] valor2) {
 
 		// precisa estar ordenado
-		// retestado
+		// retestado - ok
 
 		if (testTRINCA(valor1) > testTRINCA(valor2)) {
 			return 1;
 		} else if (testTRINCA(valor1) < testTRINCA(valor2)) {
 			return -1;
 		} else if (testTRINCA(valor1) == testTRINCA(valor2)) {
-			if (testUMPAR(valor1) > testUMPAR(valor2)) {
+			if (testDOISPARES(valor1) > testDOISPARES(valor2)) {
 				return 1;
-			} else if (testUMPAR(valor1) == testUMPAR(valor2)) {
+			} else if (testDOISPARES(valor1) == testDOISPARES(valor2)) {
 				return testCARTAALTA(valor1, valor2);
 			} else {
 				return -1;
@@ -213,34 +185,32 @@ public class Testes {
 	public int testTRINCA(int[] valor) {
 
 		// precisa estar ordenado
-		// retestado
+		// retestado ok
 
 		byte cont = 0;
-		boolean ok = false;
 		int value = 0;
 
 		for (int i = 0; i < 5; i++) {
-			for (int j = 1; j < 5; j++) {
-				if (valor[i] == valor[j] && i != j) {
+			for (int j = 0; j < 5; j++) {
+				if (valor[i] == valor[j]) {
+
 					cont++;
 					value = valor[j];
-					ok = true;
-				}
-			}
-			if (ok) {
-				if (cont == 2) {
-					return value;
-				} else {
-					return -1;
-				}
-			}
-		}
 
-		if (cont == 2) {
-			return value;
-		} else {
-			return -1;
+				}
+			}
+			if (cont >= 3) {
+				return value;
+			} else {
+				value = 0;
+				cont = 0;
+			}
+
 		}
+		if (value > 0)
+			return value;
+		else
+			return -1;
 
 	}
 
@@ -267,6 +237,37 @@ public class Testes {
 			return -1;
 		} else
 			return pares;
+
+	}
+
+	public boolean testDOISPARESb(int[] valor) {
+
+		// precisa estar ordenado
+		// retestado
+
+		int[] aux = (int[]) valor.clone();
+		int pares = 0;
+		int cont = 0;
+
+		for (int i = 1; i < 5; i++) {
+			if ((aux[i] == aux[i - 1]) && (aux[i] != pares)) {
+
+				if (pares > 0) {
+					pares = aux[i];
+					cont++;
+				} else if (pares == 0) {
+					pares = aux[i];
+					cont++;
+				}
+
+			}
+		}
+		if (pares == 0 || cont < 2) {
+			return false;
+		} else if (pares > 0 && cont == 2)
+			return true;
+		else
+			return false;
 
 	}
 
@@ -342,10 +343,10 @@ public class Testes {
 	}
 
 	public static void main(String[] args) {
-		int[] a = new int[] { 3, 3, 4, 4, 4 };
+		int[] a = new int[] { 2, 2, 3, 5, 5 };
 		int[] c = new int[] { 3, 3, 3, 5, 5 };
 		char[] n = new char[] { 'H', 'H', 'C', 'H', 'H' };
-		int b = Testes.getInstace().testDOISPARES(a);
+		boolean b = Testes.getInstace().testFULLHOUSE(a);
 		System.out.println(b);
 	}
 
