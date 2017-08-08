@@ -50,7 +50,7 @@ public class PokerPrevision {
 
 		double tInicio = System.currentTimeMillis();// inicia marcação de tempo
 
-		PokerHands("entradas/pokerK.txt");
+		PokerHands("entradas/pokerM.txt");
 		
 		Logic.getInstance().getVENCEDOR();
 		

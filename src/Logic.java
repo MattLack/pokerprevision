@@ -43,7 +43,7 @@ public class Logic {
 				&& !(Testes.getInstace().testROYALFLASH(ordValH2, naipeHAND2))) {
 			// m1 tem royalflash m2 não
 			venc1++;
-			System.out.println((Testes.getInstace().testROYALFLASH(ordValH1, naipeHAND1)));
+			//System.out.println((Testes.getInstace().testROYALFLASH(ordValH1, naipeHAND1)));
 
 		} else if ((Testes.getInstace().testSTRAIGHTFLUSH(ordValH1, naipeHAND1))
 				&& !(Testes.getInstace().testSTRAIGHTFLUSH(ordValH2, naipeHAND2))
