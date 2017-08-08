@@ -245,58 +245,55 @@ public class Testes {
 		int pares = 0;
 
 		for (int i = 1; i < 5; i++) {
-			if (aux[i] == aux[i - 1] && aux[i] != pares) {
-				// doispares[cont] = aux[i];
-				// System.out.println(doispares[cont]);
+			if ((aux[i] == aux[i - 1]) && (aux[i] != pares)) {
+				
+				
 				if (pares > 0)
-					return pares;
-				else
 					pares = aux[i];
-				cont++;
-				// System.out.println(cont);
+				else
+					return pares;
+
 			}
 		}
-		/*
-		 * if (cont == 2) { if (doispares[0] != doispares[1]) {
-		 * 
-		 * return doispares[1]; } }
-		 */
+
 		return -1;
 
 	}
 
-	public int testDESEMPATADOISPARES(int[] valor1,int[] valor2) {
+	public int testDESEMPATADOISPARES(int[] valor1, int[] valor2) {
 
 		// precisa estar ordenado
-		
+
 		int dpar1 = testDOISPARES(valor1);
 		int dpar2 = testDOISPARES(valor2);
-		//verifica o par mais alto
-		if(dpar1 > dpar2){
+		// verifica o par mais alto
+		if (dpar1 > dpar2) {
 			return 1;
-		}else if(dpar1 == dpar2){
-			//caso empate verifica o segundo maior par
+		} else if (dpar1 == dpar2) {
+			// caso empate verifica o segundo maior par
 			int parM1 = -1;
 			int parM2 = -1;
-			//procura o segundo par da primeira mão, o algorítmo confia que o segundo par existe
-			for(int i = 1; i< valor1.length;i++){
-				if(valor1[i] == valor1[i-1] && valor1[i] != dpar1){
+			// procura o segundo par da primeira mão, o algorítmo confia que o
+			// segundo par existe
+			for (int i = 1; i < valor1.length; i++) {
+				if ((valor1[i] == valor1[i - 1]) && (valor1[i] != dpar1)) {
 					parM1 = valor1[i];
 				}
 			}
-			//procura o segundo par da segunda mão, o algorítmo confia que o segundo par existe
-			for(int i = 1; i< valor2.length;i++){
-				if(valor2[i] == valor2[i-1] && valor1[i] != dpar2){
-					parM1 = valor1[i];
+			// procura o segundo par da segunda mão, o algorítmo confia que o
+			// segundo par existe
+			for (int i = 1; i < valor2.length; i++) {
+				if ((valor2[i] == valor2[i - 1]) && (valor2[i] != dpar2)) {
+					parM2 = valor1[i];
 				}
 			}
-			if(parM1 > parM2)
+			if (parM1 > parM2)
 				return 1;
 			else
 				return this.testCARTAALTA(valor1, valor2);
-			
-		}else{
-			//caso o par da mão 2 seja maior que o da mão 1 retorna -1;
+
+		} else {
+			// caso o par da mão 2 seja maior que o da mão 1 retorna -1;
 			return -1;
 		}
 	}
@@ -308,25 +305,12 @@ public class Testes {
 		boolean ok = false;
 		int value = 0;
 
-		for (int i = 0; i < 5; i++) {
-			for (int j = 1; j < 5; j++) {
-				if (aux[i] == aux[j] && i != j && aux[i] != 0 && aux[j] != 0) {
-					cont++;
-					value = aux[j];
-					ok = true;
-					break;
-				}
-			}
-
-			if (ok) {
-				if (cont == 1) {
-					return value;
-				} else {
-					return -1;
-				}
-
+		for (int i = 1; i < aux.length; i++) {
+			if (aux[i] == aux[i - 1]) {
+				return aux[i];
 			}
 		}
+
 		return -1;
 
 	}
