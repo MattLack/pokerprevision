@@ -248,6 +248,7 @@ public class Testes {
 			if ((aux[i] == aux[i - 1]) && (aux[i] != pares)) {
 				
 				
+				
 				if (pares > 0)
 					pares = aux[i];
 				else

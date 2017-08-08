@@ -62,7 +62,7 @@ public class Logic {
 			} else {
 
 				int quadra1 = Testes.getInstace().testQUADRA(ordValH1);
-				int quadra2 = Testes.getInstace().testQUADRA(valorHAND2);
+				int quadra2 = Testes.getInstace().testQUADRA(ordValH2);
 
 				// verifica quadra e o valor da mesma
 
