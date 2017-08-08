@@ -14,7 +14,7 @@ public class Logic {
 	int[] ordValH2 = new int[5];
 
 	// Vencedor 1
-	long venc1;
+	long venc1 = 0;
 
 	private static Logic instance = null;
 
@@ -35,7 +35,7 @@ public class Logic {
 
 	public void logicHANDS(String text) {
 
-		this.venc1 = 0;
+		//this.venc1 = 0;
 
 		dividirMAOS(text);
 

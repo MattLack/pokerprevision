@@ -19,6 +19,7 @@ public class PokerPrevision {
 
 			fr = new FileReader(FILENAME);
 			br = new BufferedReader(fr);
+			int n = 0;
 
 			String sCurrentLine;
 
@@ -27,6 +28,9 @@ public class PokerPrevision {
 			while ((sCurrentLine = br.readLine()) != null) {
 				if (!sCurrentLine.equals("\n") && !sCurrentLine.equals("") && !sCurrentLine.equals(" ")) {
 					Logic.getInstance().logicHANDS(sCurrentLine);
+					
+					//System.out.println(n);
+					n++;
 				}
 			}
 
@@ -46,7 +50,7 @@ public class PokerPrevision {
 
 		double tInicio = System.currentTimeMillis();// inicia marcação de tempo
 
-		PokerHands("entradas/pokerK.txt");
+		PokerHands("entradas/pokerM.txt");
 		
 		Logic.getInstance().getVENCEDOR();
 		
