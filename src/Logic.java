@@ -1,4 +1,3 @@
-import java.math.BigInteger;
 import java.util.Arrays;
 
 public class Logic {
@@ -132,10 +131,9 @@ public class Logic {
 										venc1++;
 									} else if (dPARES1 == dPARES2) {
 										// desempata dois pares
-										int dsPARES1 = Testes.getInstace().testDESEMPATADOISPARES(ordValH1);
-										int dsPARES2 = Testes.getInstace().testDESEMPATADOISPARES(ordValH2);
+										int dsPARES1 = Testes.getInstace().testDESEMPATADOISPARES(ordValH1,ordValH2);
 
-										if (dsPARES1 > dsPARES2) {
+										if (dsPARES1 > 0) {
 											venc1++;
 										}
 
