@@ -185,8 +185,12 @@ public class Logic {
 		int carta2;
 		int cont1 = 0;
 		int cont2 = 0;
+		int v1=0;
+		int v2=0;
+		int n1=1;
+		
 
-		for (int v1 = 0; v1 <= 14; v1 += 3) {
+		while (v1 <= 14) {
 
 			if (this.hand1.charAt(v1) == 'A') {
 				carta1 = 14;
@@ -207,11 +211,12 @@ public class Logic {
 			}
 
 			this.valorHAND1[cont1] = carta1;
+			v1+=3;
 			cont1++;
 
 		}
 
-		for (int v2 = 0; v2 <= 14; v2 += 3) {
+		while (v2 <= 14) {
 
 			if (this.hand2.charAt(v2) == 'A') {
 				carta2 = 14;
@@ -232,16 +237,18 @@ public class Logic {
 			}
 
 			this.valorHAND2[cont2] = carta2;
+			v2 +=3;
 			cont2++;
 
 		}
 
 		cont1 = 0;
 
-		for (int n1 = 1; n1 <= 14; n1 += 3) {
+		while (n1 <= 14) {
 			this.naipeHAND1[cont1] = this.hand1.charAt(n1);
 			this.naipeHAND2[cont1] = this.hand2.charAt(n1);
 			cont1++;
+			n1 +=3;
 		}
 
 		this.ordValH1 = (int[]) this.valorHAND1.clone();

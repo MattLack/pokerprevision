@@ -25,12 +25,14 @@ public class Testes {
 
 		int valort = 0;
 		int base = 10;
+		int j =0;
 
-		for (int j = 0; j < 5; j++) {
+		while (j < 5) {
 			if (aux2[j] == base) {
 				valort++;
 				base++;
 			}
+			j++;
 		}
 
 		if (v == true && valort == 5) {
@@ -64,15 +66,18 @@ public class Testes {
 
 		byte cont = 0;
 		int value = 0;
+		int i = 0;
+		int j = 0;
 
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
+		while (i < 5) {
+			while (j < 5) {
 				if (valor[i] == valor[j]) {
 
 					cont++;
 					value = valor[j];
 
 				}
+				j++;
 			}
 			if (cont >= 4) {
 				return value;
@@ -80,7 +85,8 @@ public class Testes {
 				value = 0;
 				cont = 0;
 			}
-
+			
+			i++;
 		}
 		if (value > 0)
 			return value;
@@ -136,12 +142,15 @@ public class Testes {
 
 		int v = 0;
 		char naipev = naipe[0];
-
-		for (int i = 0; i < 5; i++) {
+		int i = 0;
+		
+		while (i < 5) {
 			if (naipe[i] == naipev) {
 				v++;
 			}
+			i++;
 		}
+	
 
 		if (v == 5) {
 			return true;
@@ -159,7 +168,9 @@ public class Testes {
 		int dif = 0;
 		int contDIF = 0;
 		int cont = 1;
-		for (int i = 0; i < 5; i++) {
+		int i = 0;
+		
+		while (i < 5) {
 			if (cont != 5) {
 				dif = aux[cont] - aux[i];
 				if (dif == 1) {
@@ -169,7 +180,8 @@ public class Testes {
 					return false;
 				}
 			}
-
+			
+			i++;
 		}
 
 		if (contDIF == 4) {
@@ -187,15 +199,18 @@ public class Testes {
 
 		byte cont = 0;
 		int value = 0;
+		int i = 0;
+		int j = 0;
 
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
+		while (i < 5) {
+			while (j < 5) {
 				if (valor[i] == valor[j]) {
 
 					cont++;
 					value = valor[j];
 
 				}
+				j++;
 			}
 			if (cont >= 3) {
 				return value;
@@ -203,7 +218,8 @@ public class Testes {
 				value = 0;
 				cont = 0;
 			}
-
+			
+			i++;
 		}
 		if (value > 0)
 			return value;
@@ -219,8 +235,9 @@ public class Testes {
 
 		int[] aux = (int[]) valor.clone();
 		int pares = 0;
-
-		for (int i = 1; i < 5; i++) {
+		int i = 1;
+		
+		while (i < 5) {
 			if ((aux[i] == aux[i - 1]) && (aux[i] != pares)) {
 
 				if (pares > 0)
@@ -230,6 +247,9 @@ public class Testes {
 				}
 
 			}
+			
+			i++;
+			
 		}
 		if (pares == 0) {
 			return -1;
@@ -246,8 +266,9 @@ public class Testes {
 		int[] aux = (int[]) valor.clone();
 		int pares = 0;
 		int cont = 0;
+		int i = 1;
 
-		for (int i = 1; i < 5; i++) {
+		while (i < 5) {
 			if ((aux[i] == aux[i - 1]) && (aux[i] != pares)) {
 
 				if (pares > 0) {
@@ -259,6 +280,8 @@ public class Testes {
 				}
 
 			}
+			
+			i++;
 		}
 		if (pares == 0 || cont < 2) {
 			return false;
@@ -283,19 +306,22 @@ public class Testes {
 			// caso empate verifica o segundo maior par
 			int parM1 = -1;
 			int parM2 = -1;
+			int i = 1;
 			// procura o segundo par da primeira mão, o algorítmo confia que o
 			// segundo par existe
-			for (int i = 1; i < valor1.length; i++) {
+			while (i < valor1.length) {
 				if ((valor1[i] == valor1[i - 1]) && (valor1[i] != dpar1)) {
 					parM1 = valor1[i];
 				}
+				i++;
 			}
 			// procura o segundo par da segunda mão, o algorítmo confia que o
 			// segundo par existe
-			for (int i = 1; i < valor2.length; i++) {
+			while (i < valor2.length) {
 				if ((valor2[i] == valor2[i - 1]) && (valor2[i] != dpar2)) {
 					parM2 = valor1[i];
 				}
+				i++;
 			}
 			if (parM1 > parM2)
 				return 1;
@@ -311,11 +337,12 @@ public class Testes {
 	public int testUMPAR(int[] aux) {
 		// precisa estar ordenado
 		// retestado
-
-		for (int i = 1; i < aux.length; i++) {
+		int i = 1;
+		while (i < aux.length) {
 			if (aux[i] == aux[i - 1]) {
 				return aux[i];
 			}
+			i++;
 		}
 
 		return -1;
