@@ -176,8 +176,9 @@ public class Logic {
 	}
 
 	public void dividirMAOS(String text) {
-
+//
 		// divide as duas mãos
+		//while case
 		this.hand1 = text.substring(0, 15);
 		this.hand2 = text.substring(15);
 

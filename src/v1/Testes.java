@@ -22,11 +22,12 @@ public class Testes {
 		boolean v = testFLUSH(naipe);
 
 		// precisa estar ordenado
-
+		// whilecase
+		
 		int valort = 0;
 		int base = 10;
 		int j =0;
-
+		
 		while (j < 5) {
 			if (aux2[j] == base) {
 				valort++;
@@ -63,7 +64,8 @@ public class Testes {
 
 		// precisa estar ordenado
 		// retestado ok
-
+		//while case
+		
 		byte cont = 0;
 		int value = 0;
 		int i = 0;
@@ -139,6 +141,7 @@ public class Testes {
 	public boolean testFLUSH(char[] naipe) {
 
 		// retestado
+		//whilecase
 
 		int v = 0;
 		char naipev = naipe[0];
@@ -164,6 +167,7 @@ public class Testes {
 
 		// precisa estar ordenado
 		// retestado
+		//whilecase
 
 		int dif = 0;
 		int contDIF = 0;
@@ -196,6 +200,7 @@ public class Testes {
 
 		// precisa estar ordenado
 		// retestado ok
+		//whilecase
 
 		byte cont = 0;
 		int value = 0;
@@ -232,6 +237,7 @@ public class Testes {
 
 		// precisa estar ordenado
 		// retestado
+		//whilecase
 
 		int[] aux = (int[]) valor.clone();
 		int pares = 0;
@@ -262,7 +268,8 @@ public class Testes {
 
 		// precisa estar ordenado
 		// retestado
-
+		//whilecase
+		
 		int[] aux = (int[]) valor.clone();
 		int pares = 0;
 		int cont = 0;
@@ -296,7 +303,8 @@ public class Testes {
 
 		// precisa estar ordenado
 		// retestado
-
+		//while case
+		
 		int dpar1 = testDOISPARES(valor1);
 		int dpar2 = testDOISPARES(valor2);
 		// verifica o par mais alto
@@ -333,10 +341,11 @@ public class Testes {
 			return -1;
 		}
 	}
-
+			////////////////
 	public int testUMPAR(int[] aux) {
 		// precisa estar ordenado
 		// retestado
+		//while case
 		int i = 1;
 		while (i < aux.length) {
 			if (aux[i] == aux[i - 1]) {
